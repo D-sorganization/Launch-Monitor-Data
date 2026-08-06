@@ -1,0 +1,96 @@
+vendor,model_scope,metric,availability,measurement_claim,source_id,notes
+TrackMan,Tee to Green,club_speed,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,attack_angle,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,club_path,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,face_angle,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,face_to_path,documented,derived,trackman_parameter_definitions,Defined as face angle minus club path
+TrackMan,Tee to Green,dynamic_loft,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,dynamic_lie,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,spin_loft,documented,defined,trackman_parameter_definitions,Three-dimensional angle
+TrackMan,Tee to Green,swing_direction,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,swing_plane,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,low_point_distance,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,impact_height,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,impact_offset,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,ball_speed,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,launch_angle,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,launch_direction,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,spin_rate,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,spin_axis,documented,defined,trackman_parameter_definitions,Official parameter definition
+TrackMan,Tee to Green,smash_factor,documented,derived,trackman_parameter_definitions,Ball speed divided by club speed
+TrackMan,Tee to Green,carry_distance,documented,mixed,trackman_parameter_definitions,Flat carry endpoint definition
+TrackMan,Tee to Green,total_distance,documented,calculated,trackman_parameter_definitions,Calculated resting position
+TrackMan,Tee to Green,lateral_carry,documented,mixed,trackman_parameter_definitions,Carry-side definition
+TrackMan,Tee to Green,lateral_total,documented,calculated,trackman_parameter_definitions,Calculated resting side position
+TrackMan,Tee to Green,apex_height,documented,mixed,trackman_parameter_definitions,Trajectory apex
+TrackMan,Tee to Green,flight_time,documented,mixed,trackman_parameter_definitions,Time to flat carry
+TrackMan,Tee to Green,descent_angle,documented,mixed,trackman_parameter_definitions,Landing angle at flat carry
+TrackMan,Tee to Green,curve,documented,mixed,trackman_parameter_definitions,Lateral movement to carry side
+FlightScope,Mevo+,club_speed,standard,defined,flightscope_parameter_definitions,Available on Mevo+
+FlightScope,Mevo+,attack_angle,standard,defined,flightscope_parameter_definitions,Available on Mevo+
+FlightScope,Mevo+,club_path,pro_package,defined,flightscope_parameter_definitions,Optional Pro Package
+FlightScope,Mevo+,face_angle,pro_package,defined,flightscope_parameter_definitions,Called face to target
+FlightScope,Mevo+,face_to_path,pro_package,defined,flightscope_parameter_definitions,Optional Pro Package
+FlightScope,Mevo+,dynamic_loft,pro_package,defined,flightscope_parameter_definitions,Optional Pro Package
+FlightScope,Mevo+,spin_loft,standard,defined,flightscope_parameter_definitions,Available on Mevo+
+FlightScope,Mevo+,swing_direction,pro_package,defined,flightscope_parameter_definitions,Called horizontal swing plane
+FlightScope,Mevo+,swing_plane,pro_package,defined,flightscope_parameter_definitions,Called vertical swing plane
+FlightScope,Mevo+,low_point_distance,pro_package,defined,flightscope_parameter_definitions,Optional Pro Package
+FlightScope,Mevo+,impact_height,add_on,defined,flightscope_parameter_definitions,Face Impact Location add-on
+FlightScope,Mevo+,impact_offset,add_on,defined,flightscope_parameter_definitions,Face Impact Location add-on
+FlightScope,Mevo+,ball_speed,standard,defined,flightscope_parameter_definitions,Available on Mevo+
+FlightScope,Mevo+,launch_angle,standard,defined,flightscope_parameter_definitions,Vertical launch angle
+FlightScope,Mevo+,launch_direction,standard,defined,flightscope_parameter_definitions,Horizontal launch direction
+FlightScope,Mevo+,spin_rate,standard,defined,flightscope_parameter_definitions,Rotations per minute at launch
+FlightScope,Mevo+,spin_axis,standard,defined,flightscope_parameter_definitions,Axis tilt
+FlightScope,Mevo+,smash_factor,standard,derived,flightscope_parameter_definitions,Ball speed divided by club speed
+FlightScope,Mevo+,carry_distance,standard,mixed,flightscope_parameter_definitions,Landing distance
+FlightScope,Mevo+,roll_distance,standard,calculated,flightscope_parameter_definitions,Roll after carry
+FlightScope,Mevo+,total_distance,standard,calculated,flightscope_parameter_definitions,Final ground position
+FlightScope,Mevo+,lateral_carry,standard,mixed,flightscope_parameter_definitions,Called lateral landing
+FlightScope,Mevo+,apex_height,standard,mixed,flightscope_parameter_definitions,Maximum trajectory height
+FlightScope,Mevo+,flight_time,standard,mixed,flightscope_parameter_definitions,Impact to initial ground impact
+FlightScope,Mevo+,descent_angle,pro_package,mixed,flightscope_parameter_definitions,Optional Pro Package
+FlightScope,Mevo+,curve,pro_package,calculated,flightscope_parameter_definitions,Optional Pro Package
+Foresight Sports,GC launch monitors,club_speed,documented,measured_claim,foresight_what_we_measure,Official vendor measurement claim
+Foresight Sports,GC launch monitors,attack_angle,documented,measured_claim,foresight_what_we_measure,Official vendor measurement claim
+Foresight Sports,GC launch monitors,club_path,documented,measured_claim,foresight_what_we_measure,Official vendor measurement claim
+Foresight Sports,GC launch monitors,face_angle,documented,measured_claim,foresight_what_we_measure,Official model comparison field
+Foresight Sports,GC launch monitors,dynamic_loft,documented,measured_claim,foresight_what_we_measure,Called impact loft
+Foresight Sports,GC launch monitors,dynamic_lie,documented,measured_claim,foresight_what_we_measure,Called delivered lie
+Foresight Sports,GC launch monitors,impact_height,documented,measured_claim,foresight_what_we_measure,Impact point component
+Foresight Sports,GC launch monitors,impact_offset,documented,measured_claim,foresight_what_we_measure,Impact point component
+Foresight Sports,GC launch monitors,ball_speed,documented,measured_claim,foresight_what_we_measure,Official vendor measurement claim
+Foresight Sports,GC launch monitors,launch_angle,documented,measured_claim,foresight_what_we_measure,Official vendor measurement claim
+Foresight Sports,GC launch monitors,launch_direction,documented,measured_claim,foresight_what_we_measure,Called azimuth or side angle
+Foresight Sports,GC launch monitors,spin_rate,documented,measured_claim,foresight_what_we_measure,Called total spin
+Foresight Sports,GC launch monitors,spin_axis,documented,measured_claim,foresight_what_we_measure,Called spin-tilt axis
+Foresight Sports,GC launch monitors,smash_factor,documented,derived,foresight_what_we_measure,Official model comparison field
+Foresight Sports,GC launch monitors,carry_distance,documented,calculated,foresight_what_we_measure,Official model comparison field
+Foresight Sports,GC launch monitors,lateral_total,documented,calculated,foresight_what_we_measure,Called offline
+Foresight Sports,GC launch monitors,apex_height,documented,calculated,foresight_what_we_measure,Called ball apex
+Foresight Sports,GC launch monitors,descent_angle,documented,calculated,foresight_what_we_measure,Called ball descent angle
+Garmin,Approach R10 and R50,ball_speed,csv_export,not_established,garmin_csv_export,Export workflow documented; field presence varies
+Garmin,Approach R10 and R50,club_speed,csv_export,not_established,garmin_csv_export,Export workflow documented; field presence varies
+Garmin,Approach R10 and R50,launch_angle,csv_export,not_established,garmin_csv_export,Export workflow documented; field presence varies
+Garmin,Approach R10 and R50,launch_direction,csv_export,not_established,garmin_csv_export,Export workflow documented; field presence varies
+Garmin,Approach R10 and R50,spin_rate,csv_export,not_established,garmin_csv_export,Export workflow documented; field presence varies
+Garmin,Approach R10 and R50,spin_axis,csv_export,not_established,garmin_csv_export,Export workflow documented; field presence varies
+Garmin,Approach R10 and R50,carry_distance,csv_export,not_established,garmin_csv_export,Export workflow documented; field presence varies
+Garmin,Approach R10 and R50,total_distance,csv_export,not_established,garmin_csv_export,Export workflow documented; field presence varies
+Rapsodo,MLM2PRO,carry_distance,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
+Rapsodo,MLM2PRO,total_distance,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
+Rapsodo,MLM2PRO,ball_speed,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
+Rapsodo,MLM2PRO,launch_angle,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
+Rapsodo,MLM2PRO,launch_direction,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
+Rapsodo,MLM2PRO,apex_height,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
+Rapsodo,MLM2PRO,lateral_carry,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Called side carry
+Rapsodo,MLM2PRO,club_speed,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
+Rapsodo,MLM2PRO,smash_factor,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
+Rapsodo,MLM2PRO,descent_angle,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
+SkyTrak,Unspecified,ball_speed,sample_advertised,not_established,rangedat_samples,Sample export advertised; license unresolved
+SkyTrak,Unspecified,launch_angle,sample_advertised,not_established,rangedat_samples,Sample export advertised; license unresolved
+SkyTrak,Unspecified,spin_rate,sample_advertised,not_established,rangedat_samples,Sample export advertised; license unresolved
+Uneekor,Unspecified,ball_speed,profile_compatibility,not_established,rangedat_samples,UpstreamDrift profile exists; public licensed observations not located
+Uneekor,Unspecified,launch_angle,profile_compatibility,not_established,rangedat_samples,UpstreamDrift profile exists; public licensed observations not located
+Uneekor,Unspecified,spin_rate,profile_compatibility,not_established,rangedat_samples,UpstreamDrift profile exists; public licensed observations not located

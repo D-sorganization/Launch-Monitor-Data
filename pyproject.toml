@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "launch-monitor-data"
+version = "0.1.0"
+description = "Traceable public golf launch-monitor data and provenance catalog"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "D-sorganization" }]
+dependencies = []
+
+[project.scripts]
+launch-monitor-data = "launch_monitor_data.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/launch_monitor_data"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

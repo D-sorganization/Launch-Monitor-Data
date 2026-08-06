@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this database, cite this repository and the row-level sources."
+title: "Launch Monitor Data"
+type: dataset
+authors:
+  - name: "D-sorganization"
+version: 0.1.0
+date-released: 2026-08-06
+license: CC-BY-4.0
+repository-code: "https://github.com/D-sorganization/Launch-Monitor-Data"
+keywords:
+  - golf
+  - launch monitor
+  - ball flight
+  - TrackMan
+  - FlightScope
+  - Foresight Sports
