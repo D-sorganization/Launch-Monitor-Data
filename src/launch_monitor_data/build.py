@@ -46,11 +46,16 @@ def _write_csv(path: Path, rows: list[dict[str, object]]) -> None:
 
 
 def _observation_id(
-    source_id: str, club: str, metric: str, vendor: str, cohort: str = ""
+    source_id: str,
+    club: str,
+    metric: str,
+    vendor: str,
+    cohort: str = "",
+    model: str = "",
 ) -> str:
     payload = f"{source_id}|{club}|{metric}|{vendor}".encode()
-    if cohort:
-        payload = f"{source_id}|{cohort}|{club}|{metric}|{vendor}".encode()
+    if cohort or model:
+        payload = f"{source_id}|{cohort}|{club}|{metric}|{vendor}|{model}".encode()
     return hashlib.sha256(payload).hexdigest()[:24]
 
 
@@ -128,6 +133,7 @@ def _normalize_aggregates(
                     row["metric"],
                     row["monitor_vendor"],
                     row["cohort"],
+                    row["monitor_model"],
                 ),
                 "source_id": row["source_id"],
                 "monitor_vendor": row["monitor_vendor"],

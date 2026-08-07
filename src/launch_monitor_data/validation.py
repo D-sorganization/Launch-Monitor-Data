@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import math
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -133,7 +134,15 @@ def validate_repository_data() -> ValidationReport:
                     f"{prefix}: unit {row.get('source_unit')!r} is not "
                     f"convertible for {metric}"
                 )
-        for column in ("monitor_vendor", "monitor_model", "cohort", "club"):
+        for column in (
+            "monitor_vendor",
+            "monitor_model",
+            "software_version",
+            "environment",
+            "cohort",
+            "club",
+            "measurement_status",
+        ):
             if not row.get(column, "").strip():
                 errors.append(f"{prefix}: missing {column}")
         if row.get("aggregation_level") != "group_mean":
@@ -143,9 +152,15 @@ def validate_repository_data() -> ValidationReport:
         try:
             if int(row.get("sample_count", "0")) <= 0:
                 errors.append(f"{prefix}: non-positive sample_count")
-            float(row["reported_mean"])
+            mean = float(row["reported_mean"])
+            if not math.isfinite(mean):
+                errors.append(f"{prefix}: reported_mean must be finite")
             if row.get("reported_sd", "").strip():
-                float(row["reported_sd"])
+                sd = float(row["reported_sd"])
+                if not math.isfinite(sd) or sd < 0:
+                    errors.append(
+                        f"{prefix}: reported_sd must be finite and non-negative"
+                    )
         except (KeyError, ValueError):
             errors.append(f"{prefix}: invalid numeric field")
 
