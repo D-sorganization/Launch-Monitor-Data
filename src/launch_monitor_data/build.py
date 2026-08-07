@@ -8,7 +8,12 @@ import sqlite3
 from dataclasses import dataclass
 from pathlib import Path
 
-from launch_monitor_data.paths import COMPARISONS, SOURCE_CATALOG, VENDOR_FIELDS
+from launch_monitor_data.paths import (
+    AGGREGATES,
+    COMPARISONS,
+    SOURCE_CATALOG,
+    VENDOR_FIELDS,
+)
 from launch_monitor_data.units import to_canonical
 from launch_monitor_data.validation import validate_repository_data
 
@@ -40,8 +45,12 @@ def _write_csv(path: Path, rows: list[dict[str, object]]) -> None:
         writer.writerows(rows)
 
 
-def _observation_id(source_id: str, club: str, metric: str, vendor: str) -> str:
+def _observation_id(
+    source_id: str, club: str, metric: str, vendor: str, cohort: str = ""
+) -> str:
     payload = f"{source_id}|{club}|{metric}|{vendor}".encode()
+    if cohort:
+        payload = f"{source_id}|{cohort}|{club}|{metric}|{vendor}".encode()
     return hashlib.sha256(payload).hexdigest()[:24]
 
 
@@ -73,6 +82,7 @@ def _normalize_observations(
                     "monitor_model": model,
                     "software_version": row["software_version"],
                     "environment": row["environment"],
+                    "cohort": "single_participant",
                     "club": row["club"],
                     "metric": row["metric"],
                     "aggregation_level": "group_mean",
@@ -87,6 +97,58 @@ def _normalize_observations(
                     "matched_shots": 1,
                 }
             )
+    return rows
+
+
+def _normalize_aggregates(
+    aggregates: list[dict[str, str]],
+) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for row in aggregates:
+        reported_mean = float(row["reported_mean"])
+        reported_sd_text = row.get("reported_sd", "").strip()
+        canonical_mean, canonical_unit = to_canonical(
+            reported_mean, row["source_unit"], row["metric"]
+        )
+        reported_sd: object
+        canonical_sd: object
+        if reported_sd_text:
+            reported_sd = float(reported_sd_text)
+            canonical_sd, _ = to_canonical(
+                float(reported_sd_text), row["source_unit"], row["metric"]
+            )
+        else:
+            reported_sd = None
+            canonical_sd = None
+        rows.append(
+            {
+                "observation_id": _observation_id(
+                    row["source_id"],
+                    row["club"],
+                    row["metric"],
+                    row["monitor_vendor"],
+                    row["cohort"],
+                ),
+                "source_id": row["source_id"],
+                "monitor_vendor": row["monitor_vendor"],
+                "monitor_model": row["monitor_model"],
+                "software_version": row["software_version"],
+                "environment": row["environment"],
+                "cohort": row["cohort"],
+                "club": row["club"],
+                "metric": row["metric"],
+                "aggregation_level": row["aggregation_level"],
+                "sample_count": int(row["sample_count"]),
+                "measurement_status": row["measurement_status"],
+                "reported_mean": reported_mean,
+                "reported_sd": reported_sd,
+                "reported_unit": row["source_unit"],
+                "canonical_mean": canonical_mean,
+                "canonical_sd": canonical_sd,
+                "canonical_unit": canonical_unit,
+                "matched_shots": int(row["matched_shots"]),
+            }
+        )
     return rows
 
 
@@ -163,6 +225,7 @@ def _create_database(
                 monitor_model TEXT NOT NULL,
                 software_version TEXT NOT NULL,
                 environment TEXT NOT NULL,
+                cohort TEXT NOT NULL,
                 club TEXT NOT NULL,
                 metric TEXT NOT NULL,
                 aggregation_level TEXT NOT NULL
@@ -170,10 +233,10 @@ def _create_database(
                 sample_count INTEGER NOT NULL CHECK (sample_count > 0),
                 measurement_status TEXT NOT NULL,
                 reported_mean REAL NOT NULL,
-                reported_sd REAL NOT NULL,
+                reported_sd REAL,
                 reported_unit TEXT NOT NULL,
                 canonical_mean REAL NOT NULL,
-                canonical_sd REAL NOT NULL,
+                canonical_sd REAL,
                 canonical_unit TEXT NOT NULL,
                 matched_shots INTEGER NOT NULL CHECK (matched_shots IN (0, 1))
             );
@@ -206,7 +269,9 @@ def build_database(output_dir: str | Path) -> BuildResult:
     sources = _read(SOURCE_CATALOG)
     fields = _read(VENDOR_FIELDS)
     comparisons = _read(COMPARISONS)
+    aggregates = _read(AGGREGATES) if AGGREGATES.is_file() else []
     observations = _normalize_observations(comparisons)
+    observations.extend(_normalize_aggregates(aggregates))
 
     _write_csv(destination / "metric_observations.csv", observations)
     _write_csv(destination / "upstreamdrift_aggregate_metrics.csv", observations)
