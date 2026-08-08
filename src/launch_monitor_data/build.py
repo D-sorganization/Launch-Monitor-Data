@@ -363,8 +363,11 @@ def build_database(output_dir: str | Path) -> BuildResult:
     _write_csv(destination / "source_catalog.csv", sources)
     _write_csv(destination / "vendor_fields.csv", fields)
     _write_csv(destination / "study_comparisons.csv", comparisons)
+    references_csv = destination / "published_references.csv"
     if references:
-        _write_csv(destination / "published_references.csv", references)
+        _write_csv(references_csv, references)
+    elif references_csv.exists():
+        references_csv.unlink()
     _create_database(
         destination / "launch_monitor_data.sqlite",
         sources,
