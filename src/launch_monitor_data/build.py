@@ -11,6 +11,7 @@ from pathlib import Path
 from launch_monitor_data.paths import (
     AGGREGATES,
     COMPARISONS,
+    REFERENCES,
     SOURCE_CATALOG,
     VENDOR_FIELDS,
 )
@@ -25,6 +26,7 @@ class BuildResult:
     vendor_count: int
     comparison_count: int
     observation_count: int
+    reference_value_count: int
 
 
 def _read(path: Path) -> list[dict[str, str]]:
@@ -158,12 +160,62 @@ def _normalize_aggregates(
     return rows
 
 
+def _normalize_references(
+    references: list[dict[str, str]],
+) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for row in references:
+        value = float(row["value"])
+        metric = row.get("metric", "").strip()
+        canonical_value: object = None
+        canonical_unit: object = None
+        if metric:
+            canonical_value, canonical_unit = to_canonical(
+                value, row["source_unit"], metric
+            )
+        payload = "|".join(
+            (
+                row["source_id"],
+                row["population"],
+                row["context"],
+                row["club"],
+                row["metric_native"],
+                row.get("year", ""),
+                row["value_type"],
+            )
+        ).encode()
+        rows.append(
+            {
+                "reference_id": hashlib.sha256(payload).hexdigest()[:24],
+                "source_id": row["source_id"],
+                "population_type": row["population_type"],
+                "population": row["population"],
+                "context": row["context"],
+                "monitor": row["monitor"],
+                "year": row.get("year", ""),
+                "club": row["club"],
+                "metric_native": row["metric_native"],
+                "metric": metric,
+                "value": value,
+                "source_unit": row["source_unit"],
+                "canonical_value": canonical_value,
+                "canonical_unit": canonical_unit,
+                "value_type": row["value_type"],
+                "confidence": row["confidence"],
+                "citation_urls": row["citation_urls"],
+                "notes": row["notes"],
+            }
+        )
+    return rows
+
+
 def _create_database(
     path: Path,
     sources: list[dict[str, str]],
     fields: list[dict[str, str]],
     comparisons: list[dict[str, str]],
     observations: list[dict[str, object]],
+    references: list[dict[str, object]],
 ) -> None:
     if path.exists():
         path.unlink()
@@ -248,6 +300,28 @@ def _create_database(
             );
             CREATE INDEX metric_observations_lookup
                 ON metric_observations(metric, monitor_vendor, club);
+            CREATE TABLE published_references (
+                reference_id TEXT PRIMARY KEY,
+                source_id TEXT NOT NULL REFERENCES sources(source_id),
+                population_type TEXT NOT NULL,
+                population TEXT NOT NULL,
+                context TEXT NOT NULL,
+                monitor TEXT NOT NULL,
+                year TEXT,
+                club TEXT NOT NULL,
+                metric_native TEXT NOT NULL,
+                metric TEXT,
+                value REAL NOT NULL,
+                source_unit TEXT NOT NULL,
+                canonical_value REAL,
+                canonical_unit TEXT,
+                value_type TEXT NOT NULL,
+                confidence TEXT NOT NULL,
+                citation_urls TEXT NOT NULL,
+                notes TEXT
+            );
+            CREATE INDEX published_references_lookup
+                ON published_references(population, club, metric_native);
             """
         )
         for table, rows in (
@@ -255,7 +329,10 @@ def _create_database(
             ("vendor_fields", fields),
             ("study_comparisons", comparisons),
             ("metric_observations", observations),
+            ("published_references", references),
         ):
+            if not rows:
+                continue
             columns = list(rows[0])
             placeholders = ", ".join("?" for _ in columns)
             connection.executemany(
@@ -276,20 +353,28 @@ def build_database(output_dir: str | Path) -> BuildResult:
     fields = _read(VENDOR_FIELDS)
     comparisons = _read(COMPARISONS)
     aggregates = _read(AGGREGATES) if AGGREGATES.is_file() else []
+    reference_rows = _read(REFERENCES) if REFERENCES.is_file() else []
     observations = _normalize_observations(comparisons)
     observations.extend(_normalize_aggregates(aggregates))
+    references = _normalize_references(reference_rows)
 
     _write_csv(destination / "metric_observations.csv", observations)
     _write_csv(destination / "upstreamdrift_aggregate_metrics.csv", observations)
     _write_csv(destination / "source_catalog.csv", sources)
     _write_csv(destination / "vendor_fields.csv", fields)
     _write_csv(destination / "study_comparisons.csv", comparisons)
+    references_csv = destination / "published_references.csv"
+    if references:
+        _write_csv(references_csv, references)
+    elif references_csv.exists():
+        references_csv.unlink()
     _create_database(
         destination / "launch_monitor_data.sqlite",
         sources,
         fields,
         comparisons,
         observations,
+        references,
     )
     return BuildResult(
         output_dir=destination,
@@ -297,4 +382,5 @@ def build_database(output_dir: str | Path) -> BuildResult:
         vendor_count=len({row["vendor"] for row in fields}),
         comparison_count=len(comparisons),
         observation_count=len(observations),
+        reference_value_count=len(references),
     )

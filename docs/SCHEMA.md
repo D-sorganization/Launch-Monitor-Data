@@ -47,3 +47,26 @@ are null when a source publishes mean-only tables.
 The canonical metric vocabulary is a deliberate compatibility contract with
 UpstreamDrift. It is not a claim that differently named vendor metrics are
 physically identical in every implementation.
+
+## `published_references`
+
+Compiled published values from `data/reference/published_references.csv`: the
+TrackMan PGA and LPGA tour-averages tables (classic and 2023 vintages),
+TrackMan amateur and handicap-group figures, Combine benchmarks, and
+launch-monitor numbers the press has published for named professional
+golfers.
+
+This table is a different evidentiary class from `metric_observations`. Rows
+are factual claims compiled from public republications, not extractions from
+licensed primary datasets. Every row carries its own `citation_urls`, a
+`value_type` (`group_mean`, `season_mean`, `session_mean`, `single_shot`,
+`max_record`, `stock_reported`, `benchmark`), and a `confidence` grade
+(`cross_verified`, `single_source`, `anecdotal_rounded`). Republication
+conflicts are recorded in `notes` rather than silently resolved. `metric` and
+canonical conversions are present only where the native metric maps onto the
+canonical vocabulary.
+
+Do not mix `published_references` rows into model fitting alongside
+`metric_observations` without accounting for their provenance: many are
+rounded press figures, single swings, or maximum records rather than measured
+group statistics.

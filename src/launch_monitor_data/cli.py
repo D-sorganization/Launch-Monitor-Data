@@ -27,7 +27,8 @@ def main() -> int:
         return 0 if report.ok else 1
     result = build_database(args.output)
     print(
-        f"Built {result.observation_count} observations from "
+        f"Built {result.observation_count} observations and "
+        f"{result.reference_value_count} published reference values from "
         f"{result.source_count} registered sources in {result.output_dir}"
     )
     return 0
