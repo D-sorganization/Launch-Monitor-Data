@@ -22,6 +22,11 @@ The database currently contains:
   that are indexed but not copied where their repositories lack a license;
 - an optional `data/studies/aggregate_observations.csv` ingestion path for
   redistributable single-monitor group statistics, validated fail-closed;
+- **534 published reference values** in a dedicated `published_references`
+  table: the TrackMan PGA and LPGA tour-averages tables (classic and 2023
+  vintages), amateur and handicap-group figures, Combine benchmarks, and
+  press-published numbers for more than 25 named tour players — every row
+  cited, confidence-graded, and kept separate from the study observations;
 - deterministic CSV and SQLite builds using the canonical metric names and SI
   units used by UpstreamDrift's `launch_monitor` package.
 

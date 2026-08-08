@@ -41,5 +41,17 @@ external files are not redistributed. In particular:
   search-index snapshots in 2026 record their expected licenses but remain
   reference-only until the pages are verified directly.
 
+## Published Reference Values
+
+The `published_references` table compiles individual factual values (tour
+averages, benchmark scores, and player launch numbers) from publicly
+published sources, each row citing the publications it was taken from. These
+are quotations of facts, not reproductions of any publication's expression,
+layout, or complete dataset presentation. TrackMan is a trademark of TrackMan
+A/S; the compiled values are attributed to their publishers and this project
+claims no endorsement by, or affiliation with, TrackMan or any publisher.
+Player names appear only as already published by the cited press sources.
+Users who republish this table should preserve the per-row citations.
+
 Users who independently obtain those files are responsible for complying with
 their terms. Nothing here relicenses third-party content.
