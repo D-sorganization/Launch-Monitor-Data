@@ -3,11 +3,18 @@
 from __future__ import annotations
 
 import csv
+import math
 from dataclasses import dataclass
 from pathlib import Path
 
 from launch_monitor_data.contracts import METRICS
-from launch_monitor_data.paths import COMPARISONS, SOURCE_CATALOG, VENDOR_FIELDS
+from launch_monitor_data.paths import (
+    AGGREGATES,
+    COMPARISONS,
+    SOURCE_CATALOG,
+    VENDOR_FIELDS,
+)
+from launch_monitor_data.units import to_canonical
 
 
 @dataclass(frozen=True)
@@ -17,6 +24,7 @@ class ValidationReport:
     source_count: int
     comparison_count: int
     vendor_field_count: int
+    aggregate_count: int
     redistributable_count: int
     reference_only_count: int
 
@@ -34,7 +42,13 @@ def validate_repository_data() -> ValidationReport:
     sources = _read_csv(SOURCE_CATALOG)
     fields = _read_csv(VENDOR_FIELDS)
     comparisons = _read_csv(COMPARISONS)
+    aggregates = _read_csv(AGGREGATES) if AGGREGATES.is_file() else []
     source_ids = {row["source_id"] for row in sources}
+    redistributable_ids = {
+        row["source_id"]
+        for row in sources
+        if row.get("redistribution_status") == "redistributable"
+    }
 
     if len(source_ids) != len(sources):
         errors.append("source_id values must be unique")
@@ -86,12 +100,77 @@ def validate_repository_data() -> ValidationReport:
         except (KeyError, ValueError):
             errors.append(f"comparisons:{row_number}: invalid numeric field")
 
+    seen_aggregates: set[tuple[str, ...]] = set()
+    for row_number, row in enumerate(aggregates, start=2):
+        prefix = f"aggregate_observations.csv:{row_number}"
+        key = tuple(
+            row.get(column, "")
+            for column in (
+                "source_id",
+                "monitor_vendor",
+                "monitor_model",
+                "cohort",
+                "club",
+                "metric",
+            )
+        )
+        if key in seen_aggregates:
+            errors.append(f"{prefix}: duplicate observation key {key}")
+        seen_aggregates.add(key)
+        if row.get("source_id") not in source_ids:
+            errors.append(f"{prefix}: unknown source_id {row.get('source_id')}")
+        elif row.get("source_id") not in redistributable_ids:
+            errors.append(
+                f"{prefix}: source {row.get('source_id')} is not redistributable"
+            )
+        metric = row.get("metric", "")
+        if metric not in METRICS:
+            errors.append(f"{prefix}: unknown metric {metric}")
+        else:
+            try:
+                to_canonical(1.0, row.get("source_unit", ""), metric)
+            except ValueError:
+                errors.append(
+                    f"{prefix}: unit {row.get('source_unit')!r} is not "
+                    f"convertible for {metric}"
+                )
+        for column in (
+            "monitor_vendor",
+            "monitor_model",
+            "software_version",
+            "environment",
+            "cohort",
+            "club",
+            "measurement_status",
+        ):
+            if not row.get(column, "").strip():
+                errors.append(f"{prefix}: missing {column}")
+        if row.get("aggregation_level") != "group_mean":
+            errors.append(f"{prefix}: aggregation_level must be group_mean")
+        if row.get("matched_shots") not in {"0", "1"}:
+            errors.append(f"{prefix}: matched_shots must be 0 or 1")
+        try:
+            if int(row.get("sample_count", "0")) <= 0:
+                errors.append(f"{prefix}: non-positive sample_count")
+            mean = float(row["reported_mean"])
+            if not math.isfinite(mean):
+                errors.append(f"{prefix}: reported_mean must be finite")
+            if row.get("reported_sd", "").strip():
+                sd = float(row["reported_sd"])
+                if not math.isfinite(sd) or sd < 0:
+                    errors.append(
+                        f"{prefix}: reported_sd must be finite and non-negative"
+                    )
+        except (KeyError, ValueError):
+            errors.append(f"{prefix}: invalid numeric field")
+
     return ValidationReport(
         ok=not errors,
         errors=tuple(errors),
         source_count=len(sources),
         comparison_count=len(comparisons),
         vendor_field_count=len(fields),
+        aggregate_count=len(aggregates),
         redistributable_count=sum(
             row["redistribution_status"] == "redistributable" for row in sources
         ),

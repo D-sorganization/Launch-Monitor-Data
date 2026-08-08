@@ -28,7 +28,18 @@ external files are not redistributed. In particular:
 - `leach_2017_validation` is CC BY-NC-ND 4.0;
 - `shaw_2023_reliability` is marked In Copyright;
 - public gists and sample-export sites without explicit reuse terms are not
-  treated as open data.
+  treated as open data;
+- the public shot-level GitHub datasets cataloged in 2026 (TrackMan, Mevo+,
+  Garmin R10/R50, SkyTrak, Rapsodo MLM2PRO, Square Golf, Awesome Golf, and
+  others) are hash- or commit-pinned but have no stated licenses, and several
+  contain player names, so they are indexed only;
+- `caddieset_github` carries a verified MIT license and `openflight_session_log`
+  a verified AGPL-3.0-or-later license; both stay reference-only because MIT
+  shot-level ingestion needs a schema extension and AGPL copyleft is
+  incompatible with this project's CC BY redistribution;
+- vendor documentation pages and open-access studies cataloged from
+  search-index snapshots in 2026 record their expected licenses but remain
+  reference-only until the pages are verified directly.
 
 Users who independently obtain those files are responsible for complying with
 their terms. Nothing here relicenses third-party content.

@@ -78,19 +78,185 @@ Garmin,Approach R10 and R50,spin_rate,csv_export,not_established,garmin_csv_expo
 Garmin,Approach R10 and R50,spin_axis,csv_export,not_established,garmin_csv_export,Export workflow documented; field presence varies
 Garmin,Approach R10 and R50,carry_distance,csv_export,not_established,garmin_csv_export,Export workflow documented; field presence varies
 Garmin,Approach R10 and R50,total_distance,csv_export,not_established,garmin_csv_export,Export workflow documented; field presence varies
-Rapsodo,MLM2PRO,carry_distance,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
-Rapsodo,MLM2PRO,total_distance,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
-Rapsodo,MLM2PRO,ball_speed,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
-Rapsodo,MLM2PRO,launch_angle,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
-Rapsodo,MLM2PRO,launch_direction,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
-Rapsodo,MLM2PRO,apex_height,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
-Rapsodo,MLM2PRO,lateral_carry,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Called side carry
-Rapsodo,MLM2PRO,club_speed,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
-Rapsodo,MLM2PRO,smash_factor,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
-Rapsodo,MLM2PRO,descent_angle,observed_in_public_excerpt,not_established,pblittle_rapsodo_example,Public gist header only; data not redistributed
+Rapsodo,MLM2PRO,carry_distance,standard,calculated,rapsodo_mlm2pro_page,Official page lists as calculated
+Rapsodo,MLM2PRO,total_distance,standard,calculated,rapsodo_mlm2pro_page,Official page lists as calculated
+Rapsodo,MLM2PRO,ball_speed,standard,measured_claim,rapsodo_mlm2pro_page,Official page lists as measured
+Rapsodo,MLM2PRO,launch_angle,standard,measured_claim,rapsodo_mlm2pro_page,Official page lists as measured
+Rapsodo,MLM2PRO,launch_direction,standard,measured_claim,rapsodo_mlm2pro_page,Official page lists as measured
+Rapsodo,MLM2PRO,apex_height,standard,calculated,rapsodo_mlm2pro_page,Official page lists as calculated
+Rapsodo,MLM2PRO,lateral_carry,standard,calculated,rapsodo_mlm2pro_page,Called side carry
+Rapsodo,MLM2PRO,club_speed,standard,measured_claim,rapsodo_mlm2pro_page,Official page lists as measured
+Rapsodo,MLM2PRO,smash_factor,standard,derived,rapsodo_mlm2pro_page,Official page lists as calculated
+Rapsodo,MLM2PRO,descent_angle,standard,calculated,rapsodo_mlm2pro_page,Official page lists as calculated
 SkyTrak,Unspecified,ball_speed,sample_advertised,not_established,rangedat_samples,Sample export advertised; license unresolved
 SkyTrak,Unspecified,launch_angle,sample_advertised,not_established,rangedat_samples,Sample export advertised; license unresolved
 SkyTrak,Unspecified,spin_rate,sample_advertised,not_established,rangedat_samples,Sample export advertised; license unresolved
 Uneekor,Unspecified,ball_speed,profile_compatibility,not_established,rangedat_samples,UpstreamDrift profile exists; public licensed observations not located
 Uneekor,Unspecified,launch_angle,profile_compatibility,not_established,rangedat_samples,UpstreamDrift profile exists; public licensed observations not located
 Uneekor,Unspecified,spin_rate,profile_compatibility,not_established,rangedat_samples,UpstreamDrift profile exists; public licensed observations not located
+Rapsodo,MLM2PRO,spin_rate,standard,measured_claim,rapsodo_mlm2pro_page,Measured with RPT or RCT premium balls
+Rapsodo,MLM2PRO,spin_axis,standard,measured_claim,rapsodo_mlm2pro_page,Measured with RPT or RCT premium balls
+Rapsodo,MLM2PRO,club_path,standard,measured_claim,rapsodo_mlm2pro_page,Added in Club Data update
+Rapsodo,MLM2PRO,attack_angle,standard,measured_claim,rapsodo_mlm2pro_page,Added in Club Data update
+Uneekor,EYE XO2,ball_speed,standard,measured_claim,uneekor_eye_xo2_page,Vendor lists Ball Speed
+Uneekor,EYE XO2,back_spin,standard,measured_claim,uneekor_eye_xo2_page,Any-ball spin via Dimple Optix
+Uneekor,EYE XO2,side_spin,standard,measured_claim,uneekor_eye_xo2_page,Any-ball spin via Dimple Optix
+Uneekor,EYE XO2,spin_axis,standard,measured_claim,uneekor_eye_xo2_page,Listed on EYE XO2 page
+Uneekor,EYE XO2,launch_angle,standard,measured_claim,uneekor_eye_xo2_page,Vendor lists Launch Angle
+Uneekor,EYE XO2,launch_direction,standard,measured_claim,uneekor_eye_xo2_page,Called side angle
+Uneekor,EYE XO2,apex_height,standard,mixed,uneekor_eye_xo2_page,Called apex
+Uneekor,EYE XO2,descent_angle,standard,mixed,uneekor_eye_xo2_page,Called angle of descent
+Uneekor,EYE XO2,flight_time,standard,mixed,uneekor_eye_xo2_page,Vendor lists Flight Time
+Uneekor,EYE XO2,carry_distance,standard,mixed,uneekor_eye_xo2_page,Vendor lists Carry Distance
+Uneekor,EYE XO2,roll_distance,standard,calculated,uneekor_eye_xo2_page,Called run
+Uneekor,EYE XO2,total_distance,standard,calculated,uneekor_eye_xo2_page,Vendor lists Total Distance
+Uneekor,EYE XO2,lateral_total,standard,mixed,uneekor_eye_xo2_page,Called side total
+Uneekor,EYE XO2,club_speed,standard,measured_claim,uneekor_eye_xo2_page,Vendor lists Club Speed
+Uneekor,EYE XO2,attack_angle,standard,measured_claim,uneekor_eye_xo2_page,Called angle of attack
+Uneekor,EYE XO2,club_path,standard,measured_claim,uneekor_eye_xo2_page,Vendor lists Club Path
+Uneekor,EYE XO2,face_angle,standard,measured_claim,uneekor_eye_xo2_page,Called club face angle
+Uneekor,EYE XO2,face_to_path,standard,derived,uneekor_eye_xo2_page,Called club face to path
+Uneekor,EYE XO2,dynamic_loft,standard,measured_claim,uneekor_eye_xo2_page,Vendor lists Dynamic Loft
+Uneekor,EYE XO2,dynamic_lie,standard,measured_claim,uneekor_eye_xo2_page,Called club lie angle
+Uneekor,EYE XO2,smash_factor,standard,derived,uneekor_eye_xo2_page,Ball speed over club speed
+Uneekor,EYE XO2,impact_height,standard,measured_claim,uneekor_eye_xo2_page,Called impact point vertical
+Uneekor,EYE XO2,impact_offset,standard,measured_claim,uneekor_eye_xo2_page,Called impact point horizontal
+Uneekor,EYE MINI,ball_speed,standard,measured_claim,uneekor_eye_mini_page,Vendor lists Ball Speed
+Uneekor,EYE MINI,back_spin,standard,measured_claim,uneekor_eye_mini_page,Any-ball spin measurement
+Uneekor,EYE MINI,side_spin,standard,measured_claim,uneekor_eye_mini_page,Any-ball spin measurement
+Uneekor,EYE MINI,launch_angle,standard,measured_claim,uneekor_eye_mini_page,Vendor lists Launch Angle
+Uneekor,EYE MINI,launch_direction,standard,measured_claim,uneekor_eye_mini_page,Called side angle
+Uneekor,EYE MINI,lateral_carry,standard,mixed,uneekor_eye_mini_page,Called side distance
+Uneekor,EYE MINI,carry_distance,standard,mixed,uneekor_eye_mini_page,Vendor lists Carry Distance
+Uneekor,EYE MINI,descent_angle,standard,mixed,uneekor_eye_mini_page,Vendor lists Descent Angle
+Uneekor,EYE MINI,apex_height,standard,mixed,uneekor_eye_mini_page,Called apex or peak height
+Uneekor,EYE MINI,flight_time,standard,mixed,uneekor_eye_mini_page,Vendor lists Flight Time
+Uneekor,EYE MINI,roll_distance,standard,calculated,uneekor_eye_mini_page,Called run
+Uneekor,EYE MINI,club_speed,standard,measured_claim,uneekor_eye_mini_page,Vendor lists Club Speed
+Uneekor,EYE MINI,attack_angle,standard,measured_claim,uneekor_eye_mini_page,Vendor lists Attack Angle
+Uneekor,EYE MINI,club_path,standard,measured_claim,uneekor_eye_mini_page,Full club data requires club stickers
+Uneekor,EYE MINI,smash_factor,standard,derived,uneekor_eye_mini_page,Ball speed over club speed
+SkyTrak,SkyTrak+,ball_speed,standard,measured_claim,skytrak_what_we_measure,Photometric measurement
+SkyTrak,SkyTrak+,launch_angle,standard,measured_claim,skytrak_what_we_measure,Photometric measurement
+SkyTrak,SkyTrak+,back_spin,standard,measured_claim,skytrak_what_we_measure,Photometric measurement
+SkyTrak,SkyTrak+,side_spin,standard,measured_claim,skytrak_what_we_measure,Photometric measurement
+SkyTrak,SkyTrak+,spin_axis,standard,measured_claim,skytrak_what_we_measure,Photometric measurement
+SkyTrak,SkyTrak+,carry_distance,standard,calculated,skytrak_what_we_measure,Vendor lists as calculated
+SkyTrak,SkyTrak+,total_distance,standard,calculated,skytrak_what_we_measure,Vendor lists as calculated
+SkyTrak,SkyTrak+,launch_direction,standard,calculated,skytrak_what_we_measure,Called side angle
+SkyTrak,SkyTrak+,descent_angle,standard,calculated,skytrak_what_we_measure,Vendor lists as calculated
+SkyTrak,SkyTrak+,apex_height,standard,calculated,skytrak_what_we_measure,Called peak height
+SkyTrak,SkyTrak+,club_speed,standard,measured_claim,skytrak_what_we_measure,Dual Doppler radar on SkyTrak+ only
+SkyTrak,SkyTrak+,smash_factor,standard,derived,skytrak_what_we_measure,SkyTrak+ only
+SkyTrak,SkyTrak+,club_path,standard,measured_claim,skytrak_what_we_measure,SkyTrak+ only
+SkyTrak,SkyTrak+,face_angle,standard,measured_claim,skytrak_what_we_measure,SkyTrak+ only
+Bushnell,Launch Pro,carry_distance,standard,calculated,bushnell_launch_pro_measure,Vendor definition page
+Bushnell,Launch Pro,ball_speed,standard,measured_claim,bushnell_launch_pro_measure,Direct image measurement
+Bushnell,Launch Pro,spin_rate,standard,measured_claim,bushnell_launch_pro_measure,Called total spin
+Bushnell,Launch Pro,launch_angle,standard,measured_claim,bushnell_launch_pro_measure,Called launch angle vertical
+Bushnell,Launch Pro,launch_direction,standard,measured_claim,bushnell_launch_pro_measure,Called horizontal launch angle or azimuth
+Bushnell,Launch Pro,spin_axis,standard,measured_claim,bushnell_launch_pro_measure,Called spin tilt axis
+Bushnell,Launch Pro,back_spin,standard,derived,bushnell_launch_pro_measure,Component of total spin
+Bushnell,Launch Pro,side_spin,standard,derived,bushnell_launch_pro_measure,Component of total spin
+Bushnell,Launch Pro,club_speed,add_on,measured_claim,bushnell_launch_pro_measure,Requires Club Data package and markers
+Bushnell,Launch Pro,smash_factor,add_on,derived,bushnell_launch_pro_measure,Requires Club Data package
+Bushnell,Launch Pro,club_path,add_on,measured_claim,bushnell_launch_pro_measure,Requires Club Data package and markers
+Bushnell,Launch Pro,attack_angle,add_on,measured_claim,bushnell_launch_pro_measure,Called angle of attack; requires Club Data package
+Full Swing,KIT,carry_distance,standard,defined,fullswing_kit_specs,One of 16 listed data points
+Full Swing,KIT,total_distance,standard,defined,fullswing_kit_specs,One of 16 listed data points
+Full Swing,KIT,spin_rate,standard,defined,fullswing_kit_specs,Indoor spin uses Titleist RCT ball integration
+Full Swing,KIT,spin_axis,standard,defined,fullswing_kit_specs,One of 16 listed data points
+Full Swing,KIT,face_angle,standard,defined,fullswing_kit_specs,One of 16 listed data points
+Full Swing,KIT,face_to_path,standard,derived,fullswing_kit_specs,One of 16 listed data points
+Full Swing,KIT,attack_angle,standard,defined,fullswing_kit_specs,One of 16 listed data points
+Full Swing,KIT,launch_angle,standard,defined,fullswing_kit_specs,One of 16 listed data points
+Full Swing,KIT,ball_speed,standard,defined,fullswing_kit_specs,One of 16 listed data points
+Full Swing,KIT,club_speed,standard,defined,fullswing_kit_specs,One of 16 listed data points
+Full Swing,KIT,smash_factor,standard,derived,fullswing_kit_specs,One of 16 listed data points
+Full Swing,KIT,club_path,standard,defined,fullswing_kit_specs,One of 16 listed data points
+Full Swing,KIT,launch_direction,standard,defined,fullswing_kit_specs,Called horizontal angle
+Full Swing,KIT,apex_height,standard,defined,fullswing_kit_specs,Called apex height
+Full Swing,KIT,lateral_carry,standard,defined,fullswing_kit_specs,Called side carry distance
+Full Swing,KIT,lateral_total,standard,defined,fullswing_kit_specs,Called side total distance
+Voice Caddie,Swing Caddie SC4 PRO,carry_distance,standard,defined,voicecaddie_sc4pro_page,Doppler radar with barometric sensor
+Voice Caddie,Swing Caddie SC4 PRO,total_distance,standard,defined,voicecaddie_sc4pro_page,Vendor lists Total Distance
+Voice Caddie,Swing Caddie SC4 PRO,club_speed,standard,defined,voicecaddie_sc4pro_page,Called swing speed
+Voice Caddie,Swing Caddie SC4 PRO,ball_speed,standard,defined,voicecaddie_sc4pro_page,Vendor lists Ball Speed
+Voice Caddie,Swing Caddie SC4 PRO,smash_factor,standard,derived,voicecaddie_sc4pro_page,Ball speed over swing speed
+Voice Caddie,Swing Caddie SC4 PRO,launch_angle,standard,defined,voicecaddie_sc4pro_page,Vendor lists Launch Angle
+Voice Caddie,Swing Caddie SC4 PRO,launch_direction,standard,defined,voicecaddie_sc4pro_page,Vendor lists Launch Direction
+Voice Caddie,Swing Caddie SC4 PRO,apex_height,standard,defined,voicecaddie_sc4pro_page,Called apex or max height
+Voice Caddie,Swing Caddie SC4 PRO,spin_rate,standard,defined,voicecaddie_sc4pro_page,Vendor lists Spin Rate
+Voice Caddie,Swing Caddie SC4 PRO,spin_axis,app_reported,defined,voicecaddie_sc4pro_page,Displayed in MySwingCaddie app
+Voice Caddie,Swing Caddie SC4 PRO,side_spin,app_reported,defined,voicecaddie_sc4pro_page,Displayed in MySwingCaddie app
+Voice Caddie,Swing Caddie SC4 PRO,back_spin,app_reported,defined,voicecaddie_sc4pro_page,Displayed in MySwingCaddie app
+Garmin,Approach R10,club_speed,standard,measured_claim,garmin_r10_page,Radar measurement at the club head
+Garmin,Approach R10,ball_speed,standard,measured_claim,garmin_r10_page,Radar measurement
+Garmin,Approach R10,launch_angle,standard,measured_claim,garmin_r10_page,Radar measurement
+Garmin,Approach R10,launch_direction,standard,measured_claim,garmin_r10_page,Radar measurement
+Garmin,Approach R10,spin_rate,standard,mixed,garmin_r10_page,Measured outdoors; indoors requires Titleist RCT balls
+Garmin,Approach R10,spin_axis,standard,calculated,garmin_r10_page,Calculated per Garmin support article
+Garmin,Approach R10,smash_factor,standard,derived,garmin_r10_page,Ball speed over club speed
+Garmin,Approach R10,apex_height,standard,calculated,garmin_r10_page,Flight model output
+Garmin,Approach R10,carry_distance,standard,calculated,garmin_r10_page,Flight model output
+Garmin,Approach R10,total_distance,standard,calculated,garmin_r10_page,Flight model output
+Garmin,Approach R50,ball_speed,standard,measured_claim,garmin_r50_manual,Three-camera photometric measurement
+Garmin,Approach R50,launch_angle,standard,measured_claim,garmin_r50_manual,Owner's manual ball data
+Garmin,Approach R50,launch_direction,standard,measured_claim,garmin_r50_manual,Owner's manual ball data
+Garmin,Approach R50,spin_rate,standard,measured_claim,garmin_r50_manual,Measured optically without special balls
+Garmin,Approach R50,spin_axis,standard,measured_claim,garmin_r50_manual,Measured optically without special balls
+Garmin,Approach R50,carry_distance,standard,calculated,garmin_r50_manual,Owner's manual ball data
+Garmin,Approach R50,total_distance,standard,calculated,garmin_r50_manual,Owner's manual ball data
+Garmin,Approach R50,apex_height,standard,calculated,garmin_r50_manual,Owner's manual ball data
+Garmin,Approach R50,lateral_total,standard,calculated,garmin_r50_manual,Called distance offline
+Garmin,Approach R50,club_speed,standard,measured_claim,garmin_r50_manual,Club data requires club-face stickers
+Garmin,Approach R50,club_path,standard,measured_claim,garmin_r50_manual,Club data requires club-face stickers
+Garmin,Approach R50,face_angle,standard,measured_claim,garmin_r50_manual,Club data requires club-face stickers
+Garmin,Approach R50,face_to_path,standard,derived,garmin_r50_manual,Club data requires club-face stickers
+Garmin,Approach R50,smash_factor,standard,derived,garmin_r50_manual,Club data requires club-face stickers
+Garmin,Approach R50,attack_angle,standard,measured_claim,garmin_r50_manual,Club data requires club-face stickers
+Square Golf,Home,carry_distance,standard,mixed,squaregolf_home_page,Vendor lists Carry Distance
+Square Golf,Home,total_distance,standard,calculated,squaregolf_home_page,Vendor lists Total Distance
+Square Golf,Home,roll_distance,standard,calculated,squaregolf_home_page,Called run
+Square Golf,Home,ball_speed,standard,measured_claim,squaregolf_home_page,Vendor lists Ball Speed
+Square Golf,Home,launch_direction,standard,measured_claim,squaregolf_home_page,Vendor lists Launch Direction
+Square Golf,Home,launch_angle,standard,measured_claim,squaregolf_home_page,Vendor lists Launch Angle
+Square Golf,Home,back_spin,standard,mixed,squaregolf_home_page,Measured with marked balls; estimated with standard balls
+Square Golf,Home,side_spin,standard,mixed,squaregolf_home_page,Measured with marked balls; estimated with standard balls
+Square Golf,Home,apex_height,standard,calculated,squaregolf_home_page,Vendor lists apex
+Square Golf,Home,club_path,standard,measured_claim,squaregolf_home_page,Called swing path; requires club sticker
+Square Golf,Home,attack_angle,standard,measured_claim,squaregolf_home_page,Called angle of attack; requires club sticker
+Square Golf,Home,face_angle,standard,measured_claim,squaregolf_home_page,Requires club sticker
+Square Golf,Home,dynamic_loft,standard,measured_claim,squaregolf_home_page,Requires club sticker
+TrackMan,iO,club_speed,standard,measured_claim,trackman_io_specs,Triple-sensor indoor unit
+TrackMan,iO,attack_angle,standard,measured_claim,trackman_io_specs,Triple-sensor indoor unit
+TrackMan,iO,club_path,standard,measured_claim,trackman_io_specs,Triple-sensor indoor unit
+TrackMan,iO,face_angle,standard,measured_claim,trackman_io_specs,Triple-sensor indoor unit
+TrackMan,iO,face_to_path,standard,derived,trackman_io_specs,Face angle minus club path
+TrackMan,iO,dynamic_loft,standard,measured_claim,trackman_io_specs,Triple-sensor indoor unit
+TrackMan,iO,spin_loft,standard,derived,trackman_io_specs,Three-dimensional angle
+TrackMan,iO,impact_height,standard,measured_claim,trackman_io_specs,Triple-sensor indoor unit
+TrackMan,iO,impact_offset,standard,measured_claim,trackman_io_specs,Triple-sensor indoor unit
+TrackMan,iO,smash_factor,standard,derived,trackman_io_specs,Ball speed over club speed
+TrackMan,iO,ball_speed,standard,measured_claim,trackman_io_specs,Triple-sensor indoor unit
+TrackMan,iO,launch_angle,standard,measured_claim,trackman_io_specs,Triple-sensor indoor unit
+TrackMan,iO,launch_direction,standard,measured_claim,trackman_io_specs,Triple-sensor indoor unit
+TrackMan,iO,spin_rate,standard,measured_claim,trackman_io_specs,Measured 3D spin without marked balls
+TrackMan,iO,spin_axis,standard,measured_claim,trackman_io_specs,Measured 3D spin without marked balls
+TrackMan,iO,apex_height,standard,mixed,trackman_io_specs,Called height
+TrackMan,iO,flight_time,standard,mixed,trackman_io_specs,Called hang time
+TrackMan,iO,curve,standard,mixed,trackman_io_specs,Vendor lists curve
+TrackMan,iO,descent_angle,standard,mixed,trackman_io_specs,Called landing angle
+TrackMan,iO,carry_distance,standard,mixed,trackman_io_specs,Vendor lists carry
+TrackMan,iO,lateral_carry,standard,mixed,trackman_io_specs,Called side
+TrackMan,iO,total_distance,standard,calculated,trackman_io_specs,Vendor lists total
+TrackMan,iO,lateral_total,standard,calculated,trackman_io_specs,Called side total
+Foresight Sports,Falcon,club_speed,standard,measured_claim,foresight_falcon_page,Single-marker club data
+Foresight Sports,Falcon,smash_factor,standard,derived,foresight_falcon_page,Single-marker club data
+Foresight Sports,Falcon,attack_angle,standard,measured_claim,foresight_falcon_page,Single-marker club data
+Foresight Sports,Falcon,club_path,standard,measured_claim,foresight_falcon_page,Single-marker club data
+Foresight Sports,Falcon,face_angle,add_on,measured_claim,foresight_falcon_page,Requires Club Analysis license and four-dot markers
+Foresight Sports,Falcon,dynamic_loft,add_on,measured_claim,foresight_falcon_page,Called loft; requires Club Analysis license
+Foresight Sports,Falcon,dynamic_lie,add_on,measured_claim,foresight_falcon_page,Called lie; requires Club Analysis license
+Foresight Sports,Falcon,impact_height,add_on,measured_claim,foresight_falcon_page,Impact location component; requires Club Analysis license
+Foresight Sports,Falcon,impact_offset,add_on,measured_claim,foresight_falcon_page,Impact location component; requires Club Analysis license

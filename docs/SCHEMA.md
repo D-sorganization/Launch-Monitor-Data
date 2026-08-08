@@ -30,6 +30,20 @@ Reported values are retained and SI canonical values are added. These are
 aggregate observations with `aggregation_level=group_mean` and
 `matched_shots=1`.
 
+Additional rows come from `data/studies/aggregate_observations.csv`, an
+optional input for redistributable single-monitor group statistics. Each row
+records monitor vendor and model, software version, environment, cohort,
+club, metric, reported unit, sample count, measurement status, and a
+matched-shots flag. Validation fails closed when a row references a source
+that is unknown or not redistributable, uses an unknown metric or a unit that
+cannot be converted, or contains non-finite means or negative standard
+deviations.
+
+The `cohort` column names the participant group an aggregate summarizes
+(for example `professional` versus `amateur`). Rows derived from the paired
+comparison study use `single_participant`. `reported_sd` and `canonical_sd`
+are null when a source publishes mean-only tables.
+
 The canonical metric vocabulary is a deliberate compatibility contract with
 UpstreamDrift. It is not a claim that differently named vendor metrics are
 physically identical in every implementation.

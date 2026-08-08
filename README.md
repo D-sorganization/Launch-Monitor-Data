@@ -3,18 +3,25 @@
 An open, provenance-first database for comparing golf launch-monitor outputs and
 ball-flight models.
 
-The initial release contains:
+The database currently contains:
 
-- **15** traceable sources, including official TrackMan, FlightScope, Foresight,
-  and Garmin documentation;
-- **95** source-backed vendor/field availability records across TrackMan,
-  FlightScope, Foresight Sports, Garmin, Rapsodo, SkyTrak, and Uneekor;
+- **56** traceable sources: official vendor documentation for TrackMan
+  (including iO), FlightScope, Foresight (including Falcon), Garmin (R10 and
+  R50), Rapsodo, SkyTrak, Uneekor, Bushnell, Full Swing, Voice Caddie, and
+  Square Golf; peer-reviewed studies; and hash-pinned public shot-level
+  datasets;
+- **261** source-backed vendor/field availability records across twelve
+  vendors;
 - **207 matched shots** from a CC BY 4.0 TrackMan 4 versus FlightScope Mevo+
   study, represented without pretending published aggregates are raw shots;
 - **57** published club/metric comparisons and **114** normalized
   monitor-specific aggregate observations;
-- a catalog entry and verified SHA-256 for a public **10,169-shot TrackMan**
-  file that is deliberately not copied because its repository has no license;
+- catalog entries with verified SHA-256 pins for more than a dozen public
+  shot-level datasets (TrackMan, Mevo+, Garmin R10/R50, SkyTrak, Rapsodo
+  MLM2PRO, Square Golf, Awesome Golf, and the MIT-licensed CaddieSet corpus)
+  that are indexed but not copied where their repositories lack a license;
+- an optional `data/studies/aggregate_observations.csv` ingestion path for
+  redistributable single-monitor group statistics, validated fail-closed;
 - deterministic CSV and SQLite builds using the canonical metric names and SI
   units used by UpstreamDrift's `launch_monitor` package.
 
