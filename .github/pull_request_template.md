@@ -1,6 +1,6 @@
 ## What Changed
 
-## Source and Rights
+## Privacy Boundary
 
 ## Monitor, Conditions, Units, and Measurement Status
 
@@ -8,5 +8,5 @@
 
 - [ ] `ruff check .`
 - [ ] `python -m pytest`
-- [ ] `launch-monitor-data validate`
-- [ ] database rebuilt and committed
+- [ ] no real rows or generated databases are tracked
+- [ ] private authority lock remains an exact commit
