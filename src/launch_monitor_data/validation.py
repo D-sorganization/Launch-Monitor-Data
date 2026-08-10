@@ -14,6 +14,7 @@ from launch_monitor_data.paths import (
     REFERENCES,
     SOURCE_CATALOG,
     VENDOR_FIELDS,
+    require_private_authority,
 )
 from launch_monitor_data.units import to_canonical
 
@@ -59,6 +60,7 @@ def _read_csv(path: Path) -> list[dict[str, str]]:
 
 def validate_repository_data() -> ValidationReport:
     """Validate all canonical source data without network access."""
+    require_private_authority()
     errors: list[str] = []
     sources = _read_csv(SOURCE_CATALOG)
     fields = _read_csv(VENDOR_FIELDS)

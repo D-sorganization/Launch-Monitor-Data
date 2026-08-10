@@ -1,4 +1,4 @@
-name: Validate Data
+name: Validate Public Boundary
 
 on:
   push:
@@ -20,7 +20,3 @@ jobs:
       - run: python -m pip install -e . pytest ruff
       - run: ruff check .
       - run: python -m pytest
-      - run: launch-monitor-data validate
-      - run: launch-monitor-data build --output rebuilt
-      - name: Verify committed CSV artifacts
-        run: diff -ru --exclude='*.sqlite' database rebuilt

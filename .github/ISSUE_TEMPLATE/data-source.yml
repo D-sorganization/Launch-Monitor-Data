@@ -1,5 +1,5 @@
 name: Propose a Data Source
-description: Register a launch-monitor dataset or comparison source
+description: Propose a source for private rights and privacy review; do not attach data
 title: "Data Source: "
 labels: ["data-source", "needs-rights-review"]
 body:
@@ -28,10 +28,13 @@ body:
       description: Include versions, environment, units, ball, and measured/estimated status.
     validations:
       required: true
+  - type: markdown
+    attributes:
+      value: "Do not paste or attach real rows, player information, or source files to this public issue."
   - type: checkboxes
     id: consent
     attributes:
       label: Consent and privacy
       options:
-        - label: I have the right to share this data and removed unlicensed personal information.
+        - label: I have not attached data and can provide rights/consent evidence privately.
           required: true
