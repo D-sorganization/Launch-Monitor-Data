@@ -90,9 +90,9 @@ def validate_repository_data() -> ValidationReport:
 
     for row_number, row in enumerate(fields, start=2):
         if row.get("source_id") not in source_ids:
-            source_id = row.get("source_id")
             errors.append(
-                f"vendor_fields.csv:{row_number}: unknown source_id {source_id}"
+                f"vendor_fields.csv:{row_number}: "
+                f"unknown source_id {row.get('source_id')}"
             )
         if row.get("metric") not in METRICS:
             errors.append(
@@ -127,7 +127,7 @@ def validate_repository_data() -> ValidationReport:
     seen_aggregates: set[tuple[str, ...]] = set()
     for row_number, row in enumerate(aggregates, start=2):
         prefix = f"aggregate_observations.csv:{row_number}"
-        key = tuple(
+        aggregate_key = tuple(
             row.get(column, "")
             for column in (
                 "source_id",
@@ -138,9 +138,9 @@ def validate_repository_data() -> ValidationReport:
                 "metric",
             )
         )
-        if key in seen_aggregates:
-            errors.append(f"{prefix}: duplicate observation key {key}")
-        seen_aggregates.add(key)
+        if aggregate_key in seen_aggregates:
+            errors.append(f"{prefix}: duplicate observation key {aggregate_key}")
+        seen_aggregates.add(aggregate_key)
         if row.get("source_id") not in source_ids:
             errors.append(f"{prefix}: unknown source_id {row.get('source_id')}")
         elif row.get("source_id") not in redistributable_ids:
@@ -191,7 +191,7 @@ def validate_repository_data() -> ValidationReport:
     seen_references: set[tuple[str, ...]] = set()
     for row_number, row in enumerate(references, start=2):
         prefix = f"published_references.csv:{row_number}"
-        key = tuple(
+        reference_key = tuple(
             row.get(column, "")
             for column in (
                 "source_id",
@@ -203,9 +203,9 @@ def validate_repository_data() -> ValidationReport:
                 "value_type",
             )
         )
-        if key in seen_references:
-            errors.append(f"{prefix}: duplicate reference key {key}")
-        seen_references.add(key)
+        if reference_key in seen_references:
+            errors.append(f"{prefix}: duplicate reference key {reference_key}")
+        seen_references.add(reference_key)
         if row.get("source_id") not in source_ids:
             errors.append(f"{prefix}: unknown source_id {row.get('source_id')}")
         if row.get("population_type") not in REFERENCE_POPULATION_TYPES:

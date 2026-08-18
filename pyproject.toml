@@ -12,6 +12,15 @@ license = { text = "MIT" }
 authors = [{ name = "D-sorganization" }]
 dependencies = []
 
+[project.optional-dependencies]
+corpus = ["pandas>=2.0", "pyarrow>=14.0"]
+dev = [
+  "mypy>=1.11",
+  "pandas-stubs>=2.0",
+  "pytest>=8.0",
+  "ruff>=0.6",
+]
+
 [project.scripts]
 launch-monitor-data = "launch_monitor_data.cli:main"
 
@@ -29,3 +38,12 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+files = ["src", "tests", "scripts"]
+strict = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = ["pyarrow.*", "pandas.*"]
+ignore_missing_imports = true
