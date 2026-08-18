@@ -33,9 +33,9 @@ analytics (angles in radians, speeds in m/s, spin in rad/s, distances in m):
 ```python
 from launch_monitor_data.corpus import available_sources, load_shots
 
-load_shots(metrics=["ball_speed", "carry_distance"])   # pruned, fast
-load_shots(sources=["blackmore_trackman_10169"])       # one source
-load_shots(canonical_units=False)                      # keep native mph/deg/rpm
+load_shots(metrics=["ball_speed", "carry_distance"])  # pruned, fast
+load_shots(sources=["blackmore_trackman_10169"])  # one source
+load_shots(canonical_units=False)  # keep native mph/deg/rpm
 ```
 
 Every frame carries `source_id`, `monitor`, `club`, and
