@@ -5,6 +5,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import sqlite3
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -34,7 +35,7 @@ def _read(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(stream))
 
 
-def _write_csv(path: Path, rows: list[dict[str, object]]) -> None:
+def _write_csv(path: Path, rows: Sequence[Mapping[str, object]]) -> None:
     if not rows:
         raise ValueError(f"Refusing to write empty artifact: {path}")
     with path.open("w", newline="", encoding="utf-8") as stream:

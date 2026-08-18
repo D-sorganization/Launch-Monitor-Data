@@ -33,7 +33,7 @@ def _run(arguments: list[str], cwd: Path | None = None) -> str:
 
 
 def _read_lock() -> dict[str, object]:
-    lock = json.loads(LOCK_PATH.read_text(encoding="utf-8"))
+    lock: dict[str, object] = json.loads(LOCK_PATH.read_text(encoding="utf-8"))
     commit = lock.get("commit")
     if lock.get("schema_version") != 1:
         raise SyncError("unsupported private data lock schema")
