@@ -141,3 +141,39 @@ def test_missing_corpus_dataset_names_the_lock_remedy(
     monkeypatch.setenv("LAUNCH_MONITOR_DATA_ROOT", str(tmp_path / "checkout"))
     with pytest.raises(FileNotFoundError, match="private_data.lock.json"):
         corpus.load_shots()
+
+
+def test_new_columns_map_to_canonical_metrics(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """lateral_carry, flight_time and captured_at reach the canonical frame."""
+    root = tmp_path / "checkout"
+    dataset = root / "data" / "authority" / "database" / "shot_corpus_parquet"
+    rows = dict(SYNTHETIC_ROWS["synthetic_trackman"])
+    rows["lateral_carry_yd"] = [-12.5]
+    rows["flight_time_s"] = [6.2]
+    rows["captured_at"] = ["2023-08-07T00:00:00"]
+    partition = dataset / "source_id=synthetic_new_columns"
+    partition.mkdir(parents=True)
+    pq.write_table(pa.table(rows), partition / "part-0.parquet")
+    (root / "data" / "authority" / "AUTHORITY_MANIFEST.json").write_text(
+        "{}", encoding="utf-8"
+    )
+    monkeypatch.setenv("LAUNCH_MONITOR_DATA_ROOT", str(root))
+
+    frame = corpus.load_shots()
+
+    row = frame.iloc[0]
+    assert row["lateral_carry"] == pytest.approx(-12.5 * 0.9144)  # yards -> m
+    assert row["flight_time"] == pytest.approx(6.2)  # already seconds
+    assert row["captured_at"] == "2023-08-07T00:00:00"
+
+
+def test_corpus_without_new_columns_still_loads(synthetic_authority: Path) -> None:
+    """A corpus pinned before #18/#19 lacks the columns; loading must not fail."""
+    frame = corpus.load_shots(sources=["synthetic_trackman"])
+
+    assert len(frame) == 1
+    assert "lateral_carry" not in frame.columns
+    assert "captured_at" not in frame.columns
+    assert frame.iloc[0]["ball_speed"] == pytest.approx(150.0 * 0.44704)

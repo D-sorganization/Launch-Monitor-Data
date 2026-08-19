@@ -50,6 +50,8 @@ CORPUS_COLUMN_MAP: dict[str, tuple[str, str]] = {
     "carry_yd": ("carry_distance", "yd"),
     "total_yd": ("total_distance", "yd"),
     "descent_angle_deg": ("descent_angle", "deg"),
+    "lateral_carry_yd": ("lateral_carry", "yd"),
+    "flight_time_s": ("flight_time", "s"),
 }
 
 IDENTITY_COLUMNS: tuple[str, ...] = (
@@ -58,6 +60,9 @@ IDENTITY_COLUMNS: tuple[str, ...] = (
     "club",
     "file",
     "row_index",
+    # ISO-8601 capture instant where the source provides one; absent from a
+    # corpus built before the #18/#19 extraction, hence the tolerant select.
+    "captured_at",
 )
 
 PASSTHROUGH_COLUMNS: tuple[str, ...] = ("apex_native",)
@@ -153,19 +158,30 @@ def load_shots(
     dataset = pyarrow_dataset.dataset(
         dataset_dir, format="parquet", partitioning="hive"
     )
+    # A corpus pinned before a column was introduced simply lacks it; select
+    # what the dataset actually has rather than failing the whole read.
+    available = set(dataset.schema.names)
     filter_expression = None
     if sources is not None:
         missing = set(sources) - set(available_sources())
         if missing:
             raise ValueError(f"Unknown corpus sources requested: {sorted(missing)}")
         filter_expression = pyarrow_dataset.field("source_id").isin(sources)
-    table = dataset.to_table(columns=["source_id", *columns], filter=filter_expression)
+    table = dataset.to_table(
+        columns=[name for name in ["source_id", *columns] if name in available],
+        filter=filter_expression,
+    )
     frame = table.to_pandas()
 
     if canonical_units:
         conversions = {
             column: (name, conversion_factor(unit, name))
             for column, (name, unit) in selected_map.items()
+        }
+        conversions = {
+            column: value
+            for column, value in conversions.items()
+            if column in frame.columns
         }
         for column, (_, factor) in conversions.items():
             frame[column] = frame[column] * factor
