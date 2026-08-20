@@ -18,12 +18,24 @@ eligibility metadata. A missing checkout, unavailable credential, commit
 mismatch, missing qualification file, or metadata hash mismatch is an error;
 there is no public-source fallback.
 
+The same check now verifies the private Release B `status.json` schema and the
+SHA-256 hashes of its schedule and ledger. Those private CSVs remain inside the
+ignored authenticated checkout; the public package exposes only aggregate
+progress through `load_release_b_status()`. At the pinned commit the verified
+state is 252 planned, 0 triggered, 0 analyzed, and not confirmatory-ready.
+
 `launch_monitor_data.load_capabilities()` exposes aggregate, data-free vendor
 capabilities. `load_source_metric_eligibility()` exposes only the traceable
 source/metric policy matrix. It uses an explicit field allowlist so a future
 private schema cannot accidentally expose shot-level columns through this
 public client. `vendor_operation()` supplies boolean permission and fail-closed
 reasons for UI clients.
+
+`load_release_b_status()` additionally recomputes schedule membership, 84-pair
+cell counts, ledger stage totals, non-overlapping exclusions, readiness, and
+vendor-training eligibility before returning a frozen aggregate record. A
+schedule is not an observation: the current record reports zero eligible
+vendor-training decisions and zero group-safe training rows.
 
 The inventory row count is not a validation sample size. Current eligibility
 disables player/session inference, longitudinal and strokes-gained analyses,

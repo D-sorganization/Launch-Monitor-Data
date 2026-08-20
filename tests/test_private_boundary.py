@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import runpy
@@ -37,7 +38,7 @@ def test_lock_pins_private_repository_to_full_commit() -> None:
         "D-sorganization/Launch-Monitor-Flight-Model-Campaign.git"
     )
     assert len(lock["commit"]) == 40
-    assert lock["commit"] == "8cd8ad04bf2904eedd0d8f10d2aa202e437e91fd"
+    assert lock["commit"] == "d469b8a427418fa00e99b0ad488e4310b067697d"
     assert paths.locked_private_commit() == lock["commit"]
     assert lock["authority_path"] == "data/authority"
 
@@ -65,6 +66,39 @@ def test_checkout_without_qualification_metadata_fails_closed(
         namespace["check_checkout"](checkout)
 
 
+def test_checkout_without_release_b_metadata_fails_closed(tmp_path: Path) -> None:
+    namespace = runpy.run_path(str(ROOT / "scripts" / "sync_private_data.py"))
+    checkout = tmp_path / "checkout"
+    (checkout / ".git").mkdir(parents=True)
+    authority = checkout / "data" / "authority"
+    authority.mkdir(parents=True)
+    (authority / "AUTHORITY_MANIFEST.json").write_text("{}", encoding="utf-8")
+    output = checkout / "results" / "v2"
+    output.mkdir(parents=True)
+    capability = output / "capability_manifest.json"
+    capability.write_text(
+        json.dumps({"schema": "launch-monitor-capability-manifest/v1"}),
+        encoding="utf-8",
+    )
+    eligibility = output / "source_metric_eligibility.csv"
+    eligibility.write_text("", encoding="utf-8")
+    qualification = {
+        "schema": "launch-monitor-data-qualification-manifest/v1",
+        "output_sha256": {
+            capability.name: hashlib.sha256(capability.read_bytes()).hexdigest(),
+            eligibility.name: hashlib.sha256(eligibility.read_bytes()).hexdigest(),
+        },
+    }
+    (output / "qualification_manifest.json").write_text(
+        json.dumps(qualification), encoding="utf-8"
+    )
+    namespace["check_checkout"].__globals__["_run"] = lambda arguments, cwd=None: (
+        paths.locked_private_commit()
+    )
+    with pytest.raises(namespace["SyncError"], match="Release B status"):
+        namespace["check_checkout"](checkout)
+
+
 def test_paths_resolve_only_inside_private_authority(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -88,5 +122,5 @@ def test_package_rejects_a_mismatched_private_commit(
     (authority / "AUTHORITY_MANIFEST.json").write_text("{}", encoding="utf-8")
     monkeypatch.setattr(paths, "private_checkout", lambda: checkout)
     monkeypatch.setattr(paths, "_git_head", lambda checkout: "0" * 40)
-    with pytest.raises(ValueError, match="expected 8cd8ad04"):
+    with pytest.raises(ValueError, match="expected d469b8a4"):
         paths.verify_locked_private_checkout()

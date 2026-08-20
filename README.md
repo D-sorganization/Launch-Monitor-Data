@@ -16,7 +16,7 @@ launch-monitor-data validate
 
 The sync client clones the private
 `D-sorganization/Launch-Monitor-Flight-Model-Campaign` repository at the exact
-commit `8cd8ad04bf2904eedd0d8f10d2aa202e437e91fd` recorded in
+commit `d469b8a427418fa00e99b0ad488e4310b067697d` recorded in
 `private_data.lock.json`. It does not accept a moving branch
 or silently download from third-party sources. Git ignores the checkout.
 
@@ -36,6 +36,7 @@ authenticated checkout:
 ```python
 from launch_monitor_data import (
     load_capabilities,
+    load_release_b_status,
     load_source_metric_eligibility,
     vendor_operation,
 )
@@ -48,6 +49,12 @@ assert not training.allowed
 print(training.reasons)  # no approved repeating split group
 
 matrix = load_source_metric_eligibility(vendor_key="trackman")
+release_b = load_release_b_status()
+assert release_b.planned_pairs == 252
+assert release_b.triggered_pairs == 0
+assert release_b.analyzed_pairs == 0
+assert not release_b.confirmatory_ready
+assert release_b.vendor_training_eligible_rows == 0
 ```
 
 The API verifies the exact private commit, qualification schemas, policy/count
@@ -58,10 +65,27 @@ does not authorize within-player, longitudinal, strokes-gained, same-shot
 cross-device, public-output, or vendor-surrogate training workflows. ShotLink
 remains prohibited for vendor training and public output.
 
+## Release B collection status
+
+The pinned private authority contains a hash-verified structural schedule for
+252 paired shots: 84 each for driver, 7-iron, and wedge. As of this exact
+release, **0 of 252 pairs have been triggered or analyzed**, every ledger row is
+`not_collected`, and `confirmatory_ready` is false. No vendor-training decision
+or group-safe training row became eligible.
+
+`load_release_b_status()` verifies the private status, schedule, ledger, pair
+membership, cell counts, accounting, and existing eligibility matrix before
+returning aggregate status. It never returns schedule, ledger, capture, or shot
+rows. The structural schedule does not establish vendor agreement and must not
+be described as collected evidence. Physical campaign parameters—including
+the ball SKU, numeric speed bands, hardware/reference set, calibration
+certificates, and placement plan—remain owner-controlled pre-pilot hold points.
+
 ## Working with the shot corpus
 
 The private authority carries a source-partitioned Parquet corpus
-(261,666 shots across 27 sources at the pinned Release A commit). With the `corpus` extra
+(261,666 shots across 27 sources at the pinned authority commit). With the
+`corpus` extra
 installed (`pip install -e ".[corpus]"`), load it as an analysis-ready frame
 in the canonical SI contract shared with UpstreamDrift's `launch_monitor`
 analytics (angles in radians, speeds in m/s, spin in rad/s, distances in m):
