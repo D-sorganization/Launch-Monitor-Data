@@ -1,9 +1,30 @@
 """Authenticated private-authority data locations."""
 
+import json
 import os
+import re
+import subprocess
+from importlib.resources import files
 from pathlib import Path
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+
+
+def locked_private_commit() -> str:
+    """Read the canonical lock in source trees or its wheel-bundled copy."""
+    source_lock = REPOSITORY_ROOT / "private_data.lock.json"
+    if source_lock.is_file():
+        payload = json.loads(source_lock.read_text(encoding="utf-8"))
+    else:
+        payload = json.loads(
+            files("launch_monitor_data")
+            .joinpath("private_data.lock.json")
+            .read_text(encoding="utf-8")
+        )
+    commit = payload.get("commit")
+    if not isinstance(commit, str) or re.fullmatch(r"[0-9a-f]{40}", commit) is None:
+        raise ValueError("private data lock must contain a full commit SHA")
+    return commit
 
 
 def private_checkout() -> Path:
@@ -22,6 +43,39 @@ def private_checkout() -> Path:
 
 def authority_dir() -> Path:
     return private_checkout() / "data" / "authority"
+
+
+def _git_head(checkout: Path) -> str:
+    result = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=checkout,
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    if result.returncode:
+        raise ValueError("private launch-monitor checkout has no readable Git HEAD")
+    return result.stdout.strip()
+
+
+def verify_locked_private_checkout() -> Path:
+    """Return the private checkout only when it is the exact Release A commit."""
+    checkout = private_checkout()
+    if not (checkout / ".git").exists():
+        raise FileNotFoundError(
+            "private launch-monitor checkout is unavailable; run "
+            "`python scripts/sync_private_data.py sync` with authorized access"
+        )
+    actual = _git_head(checkout)
+    expected = locked_private_commit()
+    if actual != expected:
+        raise ValueError(
+            f"private checkout is {actual}; expected {expected}; "
+            "run `python scripts/sync_private_data.py sync`"
+        )
+    require_private_authority(checkout / "data" / "authority")
+    return checkout
 
 
 # Import-time constants, kept for existing callers; prefer the functions above

@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -37,13 +39,13 @@ def _read_lock() -> dict[str, object]:
     commit = lock.get("commit")
     if lock.get("schema_version") != 1:
         raise SyncError("unsupported private data lock schema")
-    if not isinstance(commit, str) or len(commit) != 40:
+    if not isinstance(commit, str) or re.fullmatch(r"[0-9a-f]{40}", commit) is None:
         raise SyncError("private data lock must contain a full commit SHA")
     return lock
 
 
 def check_checkout(destination: Path = DESTINATION) -> None:
-    """Require an exact locked checkout with an authority manifest."""
+    """Require the exact checkout and hash-verified qualified metadata."""
     lock = _read_lock()
     if not (destination / ".git").exists():
         raise SyncError(
@@ -56,6 +58,34 @@ def check_checkout(destination: Path = DESTINATION) -> None:
     authority = destination / str(lock["authority_path"])
     if not (authority / "AUTHORITY_MANIFEST.json").is_file():
         raise SyncError(f"authority manifest is missing from {authority}")
+    output = destination / "results" / "v2"
+    qualification_path = output / "qualification_manifest.json"
+    capability_path = output / "capability_manifest.json"
+    eligibility_path = output / "source_metric_eligibility.csv"
+    if not qualification_path.is_file():
+        raise SyncError("private checkout lacks v2 qualification metadata")
+    try:
+        qualification = json.loads(qualification_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise SyncError("private qualification manifest is unreadable") from error
+    if qualification.get("schema") != "launch-monitor-data-qualification-manifest/v1":
+        raise SyncError("unsupported private qualification schema")
+    outputs = qualification.get("output_sha256")
+    if not isinstance(outputs, dict):
+        raise SyncError("private qualification manifest has no output hashes")
+    for name, path in (
+        ("capability_manifest.json", capability_path),
+        ("source_metric_eligibility.csv", eligibility_path),
+    ):
+        actual = hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else ""
+        if actual != outputs.get(name):
+            raise SyncError(f"private qualification metadata hash mismatch for {name}")
+    try:
+        capability = json.loads(capability_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise SyncError("private capability manifest is unreadable") from error
+    if capability.get("schema") != "launch-monitor-capability-manifest/v1":
+        raise SyncError("unsupported private capability schema")
 
 
 def sync_checkout(destination: Path = DESTINATION) -> None:

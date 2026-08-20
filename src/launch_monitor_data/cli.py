@@ -23,7 +23,11 @@ def main() -> int:
             print(
                 f"sources={report.source_count} "
                 f"comparisons={report.comparison_count} "
-                f"vendor_fields={report.vendor_field_count} ok={report.ok}"
+                f"vendor_fields={report.vendor_field_count} "
+                f"qualified_sources={report.qualified_source_count} "
+                f"qualified_rows={report.qualified_source_rows} "
+                f"strict_model_inputs={report.strict_model_input_rows} "
+                f"capability_schema={report.capability_schema} ok={report.ok}"
             )
             for error in report.errors:
                 print(f"ERROR: {error}")

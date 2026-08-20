@@ -8,6 +8,8 @@ from pathlib import Path
 
 import pytest
 
+from launch_monitor_data import paths
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -25,6 +27,8 @@ def test_public_tree_tracks_no_live_data_artifacts() -> None:
     assert violations == []
     assert not (ROOT / "data").exists()
     assert not (ROOT / "database").exists()
+    assert not (ROOT / "results").exists()
+    assert not any(path.parts[0] == "private_data" for path in tracked)
 
 
 def test_lock_pins_private_repository_to_full_commit() -> None:
@@ -33,6 +37,8 @@ def test_lock_pins_private_repository_to_full_commit() -> None:
         "D-sorganization/Launch-Monitor-Flight-Model-Campaign.git"
     )
     assert len(lock["commit"]) == 40
+    assert lock["commit"] == "78f0a42540e523ac883d843394b30a636311bf9d"
+    assert paths.locked_private_commit() == lock["commit"]
     assert lock["authority_path"] == "data/authority"
 
 
@@ -41,6 +47,22 @@ def test_missing_private_checkout_fails_closed(tmp_path: Path) -> None:
     sync_error = namespace["SyncError"]
     with pytest.raises(sync_error, match="checkout is missing"):
         namespace["check_checkout"](tmp_path / "missing")
+
+
+def test_checkout_without_qualification_metadata_fails_closed(
+    tmp_path: Path,
+) -> None:
+    namespace = runpy.run_path(str(ROOT / "scripts" / "sync_private_data.py"))
+    checkout = tmp_path / "checkout"
+    (checkout / ".git").mkdir(parents=True)
+    authority = checkout / "data" / "authority"
+    authority.mkdir(parents=True)
+    (authority / "AUTHORITY_MANIFEST.json").write_text("{}", encoding="utf-8")
+    namespace["check_checkout"].__globals__["_run"] = lambda arguments, cwd=None: (
+        paths.locked_private_commit()
+    )
+    with pytest.raises(namespace["SyncError"], match="qualification metadata"):
+        namespace["check_checkout"](checkout)
 
 
 def test_paths_resolve_only_inside_private_authority(
@@ -54,3 +76,17 @@ def test_paths_resolve_only_inside_private_authority(
     )
     with pytest.raises(FileNotFoundError, match="sync_private_data.py sync"):
         namespace["require_private_authority"]()
+
+
+def test_package_rejects_a_mismatched_private_commit(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    checkout = tmp_path / "checkout"
+    (checkout / ".git").mkdir(parents=True)
+    authority = checkout / "data" / "authority"
+    authority.mkdir(parents=True)
+    (authority / "AUTHORITY_MANIFEST.json").write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(paths, "private_checkout", lambda: checkout)
+    monkeypatch.setattr(paths, "_git_head", lambda checkout: "0" * 40)
+    with pytest.raises(ValueError, match="expected 78f0a425"):
+        paths.verify_locked_private_checkout()
