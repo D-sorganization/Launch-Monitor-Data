@@ -16,16 +16,52 @@ launch-monitor-data validate
 
 The sync client clones the private
 `D-sorganization/Launch-Monitor-Flight-Model-Campaign` repository at the exact
-commit recorded in `private_data.lock.json`. It does not accept a moving branch
+commit `78f0a42540e523ac883d843394b30a636311bf9d` recorded in
+`private_data.lock.json`. It does not accept a moving branch
 or silently download from third-party sources. Git ignores the checkout.
 
 Users without private access can inspect and test the public code, but data
 commands fail closed until an authorized checkout is present.
 
+## Qualified capabilities and eligibility
+
+Release A distinguishes the 261,666-row source inventory from scientifically
+qualified cohorts. The locked authority reports 13,855 complete, non-imputed
+five-input rows; outcome-specific agreement sample sizes are smaller. These are
+vendor-output agreement cohorts, not independent ground truth.
+
+Applications can inspect only hash-verified, data-free metadata from the
+authenticated checkout:
+
+```python
+from launch_monitor_data import (
+    load_capabilities,
+    load_source_metric_eligibility,
+    vendor_operation,
+)
+
+capabilities = load_capabilities()
+trackman = vendor_operation("trackman", "model_agreement")
+training = vendor_operation("trackman", "vendor_training")
+assert trackman.allowed
+assert not training.allowed
+print(training.reasons)  # no approved repeating split group
+
+matrix = load_source_metric_eligibility(vendor_key="trackman")
+```
+
+The API verifies the exact private commit, qualification schemas, policy/count
+agreement, and SHA-256 hashes before returning aggregate or source/metric policy
+metadata. It never returns shot rows. Unknown vendors, unknown operations,
+missing metadata, commit drift, and hash drift fail closed. Current metadata
+does not authorize within-player, longitudinal, strokes-gained, same-shot
+cross-device, public-output, or vendor-surrogate training workflows. ShotLink
+remains prohibited for vendor training and public output.
+
 ## Working with the shot corpus
 
 The private authority carries a source-partitioned Parquet corpus
-(261,666 shots across 27 sources as of 2026-08-18). With the `corpus` extra
+(261,666 shots across 27 sources at the pinned Release A commit). With the `corpus` extra
 installed (`pip install -e ".[corpus]"`), load it as an analysis-ready frame
 in the canonical SI contract shared with UpstreamDrift's `launch_monitor`
 analytics (angles in radians, speeds in m/s, spin in rad/s, distances in m):

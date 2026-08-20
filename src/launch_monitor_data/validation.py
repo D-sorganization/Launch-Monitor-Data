@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from launch_monitor_data.contracts import METRICS
+from launch_monitor_data.eligibility import load_capabilities
 from launch_monitor_data.paths import (
     AGGREGATES,
     COMPARISONS,
@@ -30,6 +31,10 @@ class ValidationReport:
     reference_value_count: int
     redistributable_count: int
     reference_only_count: int
+    qualified_source_count: int = 0
+    qualified_source_rows: int = 0
+    strict_model_input_rows: int = 0
+    capability_schema: str = ""
 
 
 REFERENCE_POPULATION_TYPES = {
@@ -61,6 +66,7 @@ def _read_csv(path: Path) -> list[dict[str, str]]:
 def validate_repository_data() -> ValidationReport:
     """Validate all canonical source data without network access."""
     require_private_authority()
+    capabilities = load_capabilities()
     errors: list[str] = []
     sources = _read_csv(SOURCE_CATALOG)
     fields = _read_csv(VENDOR_FIELDS)
@@ -261,4 +267,10 @@ def validate_repository_data() -> ValidationReport:
         reference_only_count=sum(
             row["redistribution_status"] == "reference_only" for row in sources
         ),
+        qualified_source_count=sum(
+            int(vendor["source_count"]) for vendor in capabilities["vendors"]
+        ),
+        qualified_source_rows=int(capabilities["source_rows"]),
+        strict_model_input_rows=int(capabilities["strict_model_input_rows"]),
+        capability_schema=str(capabilities["schema"]),
     )

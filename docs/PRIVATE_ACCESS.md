@@ -12,5 +12,23 @@ shot corpus remain under adjacent private-only folders and are never copied to
 this public Git tree.
 
 `python scripts/sync_private_data.py check` verifies that the checkout HEAD and
-authority manifest match the lock. A missing checkout, unavailable credential,
-or commit mismatch is an error; there is no public-source fallback.
+authority manifest match the lock. It also verifies the v2 qualification and
+capability schemas plus the SHA-256 hashes for the capability and source/metric
+eligibility metadata. A missing checkout, unavailable credential, commit
+mismatch, missing qualification file, or metadata hash mismatch is an error;
+there is no public-source fallback.
+
+`launch_monitor_data.load_capabilities()` exposes aggregate, data-free vendor
+capabilities. `load_source_metric_eligibility()` exposes only the traceable
+source/metric policy matrix. It uses an explicit field allowlist so a future
+private schema cannot accidentally expose shot-level columns through this
+public client. `vendor_operation()` supplies boolean permission and fail-closed
+reasons for UI clients.
+
+The inventory row count is not a validation sample size. Current eligibility
+disables player/session inference, longitudinal and strokes-gained analyses,
+same-shot cross-device claims, public row output, and vendor-surrogate training.
+ShotLink is explicitly quarantined from training and public output. TrackMan-
+comparable model agreement is available for qualified source/metric cohorts,
+but the historical neural surrogate is retired because its split was not based
+on a trusted repeating player/session group.
