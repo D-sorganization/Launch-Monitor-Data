@@ -28,6 +28,11 @@ def main() -> int:
                 f"qualified_rows={report.qualified_source_rows} "
                 f"strict_model_inputs={report.strict_model_input_rows} "
                 f"capability_schema={report.capability_schema} ok={report.ok}"
+                f" release_b={report.release_b_analyzed_pairs}/"
+                f"{report.release_b_planned_pairs} "
+                f"release_b_triggered={report.release_b_triggered_pairs} "
+                f"release_b_ready={report.release_b_confirmatory_ready} "
+                f"vendor_training_rows={report.vendor_training_eligible_rows}"
             )
             for error in report.errors:
                 print(f"ERROR: {error}")

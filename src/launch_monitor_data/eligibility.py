@@ -7,9 +7,12 @@ import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
-from launch_monitor_data.paths import verify_locked_private_checkout
+from launch_monitor_data.paths import (
+    locked_private_commit,
+    verify_locked_private_checkout,
+)
 
 CAPABILITY_SCHEMA = "launch-monitor-capability-manifest/v1"
 QUALIFICATION_SCHEMA = "launch-monitor-data-qualification-manifest/v1"
@@ -54,6 +57,39 @@ INTEGER_FIELDS = {
 BOOLEAN_FIELDS = {
     field for field in SAFE_ELIGIBILITY_FIELDS if field.endswith("_eligible")
 }
+RELEASE_B_STATUS_SCHEMA = "release-b-collection-status/v1"
+RELEASE_B_CELLS = ("7-iron", "driver", "wedge")
+RELEASE_B_SCHEDULE_FIELDS = (
+    "campaign_id",
+    "shot_pair_id",
+    "trigger_id",
+    "collection_block_id",
+    "club_id",
+    "speed_band_id",
+    "ball_model",
+    "hitter_type",
+    "setting",
+    "impact_condition",
+    "randomized_order",
+)
+RELEASE_B_LEDGER_FIELDS = (
+    "shot_pair_id",
+    "triggered",
+    "synchronized",
+    "calibrated",
+    "reference_complete",
+    "metric_complete",
+    "analyzed",
+    "primary_exclusion_reason",
+)
+RELEASE_B_STAGES = (
+    "triggered",
+    "synchronized",
+    "calibrated",
+    "reference_complete",
+    "metric_complete",
+    "analyzed",
+)
 
 
 @dataclass(frozen=True)
@@ -64,6 +100,30 @@ class OperationEligibility:
     operation: str
     allowed: bool
     reasons: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class ReleaseBStatus:
+    """Verified aggregate Release B state; contains no capture or schedule rows."""
+
+    schema: str
+    source_commit: str
+    schedule_sha256: str
+    ledger_sha256: str
+    planned_pairs: int
+    triggered_pairs: int
+    synchronized_pairs: int
+    calibrated_pairs: int
+    reference_complete_pairs: int
+    metric_complete_pairs: int
+    analyzed_pairs: int
+    not_collected_pairs: int
+    required_per_cell: int
+    analyzed_by_cell: tuple[tuple[str, int], ...]
+    confirmatory_ready: bool
+    eligibility_matrix_sha256: str
+    vendor_training_eligible_decisions: int
+    vendor_training_eligible_rows: int
 
 
 def _sha256(path: Path) -> str:
@@ -139,6 +199,125 @@ def load_source_metric_eligibility(
                 record[field] = raw[field] == "True"
             records.append(record)
     return tuple(records)
+
+
+def _read_release_b_csv(path: Path, expected: tuple[str, ...]) -> list[dict[str, str]]:
+    if not path.is_file():
+        raise FileNotFoundError(
+            f"locked authority lacks Release B metadata: {path.name}"
+        )
+    with path.open(newline="", encoding="utf-8") as stream:
+        reader = csv.DictReader(stream)
+        if tuple(reader.fieldnames or ()) != expected:
+            raise ValueError(f"unsafe or unsupported Release B schema for {path.name}")
+        return list(reader)
+
+
+def _release_b_boolean(value: str, field: str) -> bool:
+    if value not in {"True", "False"}:
+        raise ValueError(f"invalid Release B boolean for {field}")
+    return value == "True"
+
+
+def load_release_b_status() -> ReleaseBStatus:
+    """Load aggregate Release B progress after verifying private row artifacts."""
+    checkout = verify_locked_private_checkout()
+    output = checkout / "results" / "release_b"
+    status_path = output / "status.json"
+    if not status_path.is_file():
+        raise FileNotFoundError("locked authority lacks Release B status metadata")
+    status: dict[str, Any] = json.loads(status_path.read_text(encoding="utf-8"))
+    if status.get("schema") != RELEASE_B_STATUS_SCHEMA:
+        raise ValueError("unsupported private Release B status schema")
+    schedule_path = output / "confirmatory_schedule.csv"
+    ledger_path = output / "collection_ledger.csv"
+    schedule_hash = _sha256(schedule_path) if schedule_path.is_file() else ""
+    ledger_hash = _sha256(ledger_path) if ledger_path.is_file() else ""
+    if schedule_hash != status.get("schedule_sha256"):
+        raise ValueError("Release B schedule hash mismatch")
+    if ledger_hash != status.get("ledger_sha256"):
+        raise ValueError("Release B ledger hash mismatch")
+    schedule = _read_release_b_csv(schedule_path, RELEASE_B_SCHEDULE_FIELDS)
+    ledger = _read_release_b_csv(ledger_path, RELEASE_B_LEDGER_FIELDS)
+    if len(schedule) != 252 or len(ledger) != 252:
+        raise ValueError("Release B requires exactly 252 schedule and ledger rows")
+    scheduled_pairs = {row["shot_pair_id"] for row in schedule}
+    ledger_pairs = {row["shot_pair_id"] for row in ledger}
+    if len(scheduled_pairs) != 252 or scheduled_pairs != ledger_pairs:
+        raise ValueError("Release B schedule and ledger pair identities differ")
+    club_by_pair = {row["shot_pair_id"]: row["club_id"] for row in schedule}
+    club_counts = {
+        club: sum(row["club_id"] == club for row in schedule)
+        for club in RELEASE_B_CELLS
+    }
+    if club_counts != {club: 84 for club in RELEASE_B_CELLS}:
+        raise ValueError("Release B schedule must contain 84 pairs per primary cell")
+    stage_counts = {
+        stage: sum(_release_b_boolean(row[stage], stage) for row in ledger)
+        for stage in RELEASE_B_STAGES
+    }
+    analyzed_by_cell = {
+        club: sum(
+            club_by_pair[row["shot_pair_id"]] == club
+            and _release_b_boolean(row["analyzed"], "analyzed")
+            for row in ledger
+        )
+        for club in RELEASE_B_CELLS
+    }
+    exclusions: dict[str, int] = {}
+    for row in ledger:
+        reason = row["primary_exclusion_reason"]
+        if reason:
+            exclusions[reason] = exclusions.get(reason, 0) + 1
+    accounting = status.get("accounting")
+    readiness = status.get("readiness")
+    if not isinstance(accounting, dict) or not isinstance(readiness, dict):
+        raise ValueError("Release B status lacks accounting or readiness")
+    expected_accounting = {
+        "planned_pairs": len(ledger),
+        **{f"{stage}_pairs": count for stage, count in stage_counts.items()},
+        "exclusions": exclusions,
+    }
+    if accounting != expected_accounting:
+        raise ValueError("Release B accounting differs from the verified ledger")
+    expected_ready = all(count >= 84 for count in analyzed_by_cell.values())
+    if readiness.get("required_per_cell") != 84:
+        raise ValueError("Release B readiness threshold must be 84 per cell")
+    if readiness.get("analyzed_by_cell") != analyzed_by_cell:
+        raise ValueError("Release B cell readiness differs from the verified ledger")
+    if readiness.get("confirmatory_ready") is not expected_ready:
+        raise ValueError("Release B readiness flag differs from the verified ledger")
+    if status.get("confirmatory_ready") is not expected_ready:
+        raise ValueError("Release B top-level readiness flag is inconsistent")
+    eligibility_path = checkout / "results" / "v2" / "source_metric_eligibility.csv"
+    eligibility_hash = _sha256(eligibility_path)
+    decisions = load_source_metric_eligibility()
+    training = tuple(
+        row for row in decisions if row["vendor_training_eligible"] is True
+    )
+    return ReleaseBStatus(
+        schema=RELEASE_B_STATUS_SCHEMA,
+        source_commit=locked_private_commit(),
+        schedule_sha256=schedule_hash,
+        ledger_sha256=ledger_hash,
+        planned_pairs=len(ledger),
+        triggered_pairs=stage_counts["triggered"],
+        synchronized_pairs=stage_counts["synchronized"],
+        calibrated_pairs=stage_counts["calibrated"],
+        reference_complete_pairs=stage_counts["reference_complete"],
+        metric_complete_pairs=stage_counts["metric_complete"],
+        analyzed_pairs=stage_counts["analyzed"],
+        not_collected_pairs=exclusions.get("not_collected", 0),
+        required_per_cell=84,
+        analyzed_by_cell=tuple(sorted(analyzed_by_cell.items())),
+        confirmatory_ready=expected_ready,
+        eligibility_matrix_sha256=eligibility_hash,
+        vendor_training_eligible_decisions=len(training),
+        vendor_training_eligible_rows=sum(
+            cast(int, row["rows_with_complete_model_inputs_and_metric"])
+            for row in training
+        ),
+    )
 
 
 def vendor_operation(vendor_key: str, operation: str) -> OperationEligibility:

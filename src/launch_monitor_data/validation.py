@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from launch_monitor_data.contracts import METRICS
-from launch_monitor_data.eligibility import load_capabilities
+from launch_monitor_data.eligibility import load_capabilities, load_release_b_status
 from launch_monitor_data.paths import (
     AGGREGATES,
     COMPARISONS,
@@ -35,6 +35,11 @@ class ValidationReport:
     qualified_source_rows: int = 0
     strict_model_input_rows: int = 0
     capability_schema: str = ""
+    release_b_planned_pairs: int = 0
+    release_b_triggered_pairs: int = 0
+    release_b_analyzed_pairs: int = 0
+    release_b_confirmatory_ready: bool = False
+    vendor_training_eligible_rows: int = 0
 
 
 REFERENCE_POPULATION_TYPES = {
@@ -67,6 +72,7 @@ def validate_repository_data() -> ValidationReport:
     """Validate all canonical source data without network access."""
     require_private_authority()
     capabilities = load_capabilities()
+    release_b = load_release_b_status()
     errors: list[str] = []
     sources = _read_csv(SOURCE_CATALOG)
     fields = _read_csv(VENDOR_FIELDS)
@@ -273,4 +279,9 @@ def validate_repository_data() -> ValidationReport:
         qualified_source_rows=int(capabilities["source_rows"]),
         strict_model_input_rows=int(capabilities["strict_model_input_rows"]),
         capability_schema=str(capabilities["schema"]),
+        release_b_planned_pairs=release_b.planned_pairs,
+        release_b_triggered_pairs=release_b.triggered_pairs,
+        release_b_analyzed_pairs=release_b.analyzed_pairs,
+        release_b_confirmatory_ready=release_b.confirmatory_ready,
+        vendor_training_eligible_rows=release_b.vendor_training_eligible_rows,
     )

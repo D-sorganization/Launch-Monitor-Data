@@ -5,7 +5,9 @@ from launch_monitor_data.contracts import CONTRACT_VERSION, METRICS, MetricContr
 from launch_monitor_data.corpus import available_sources, load_shots
 from launch_monitor_data.eligibility import (
     OperationEligibility,
+    ReleaseBStatus,
     load_capabilities,
+    load_release_b_status,
     load_source_metric_eligibility,
     vendor_operation,
 )
@@ -18,12 +20,14 @@ __all__ = [
     "BuildResult",
     "MetricContract",
     "OperationEligibility",
+    "ReleaseBStatus",
     "ValidationReport",
     "available_sources",
     "build_database",
     "from_canonical",
     "load_shots",
     "load_capabilities",
+    "load_release_b_status",
     "load_source_metric_eligibility",
     "to_canonical",
     "to_display",

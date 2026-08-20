@@ -86,6 +86,21 @@ def check_checkout(destination: Path = DESTINATION) -> None:
         raise SyncError("private capability manifest is unreadable") from error
     if capability.get("schema") != "launch-monitor-capability-manifest/v1":
         raise SyncError("unsupported private capability schema")
+    release_b = destination / "results" / "release_b"
+    release_status_path = release_b / "status.json"
+    try:
+        release_status = json.loads(release_status_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise SyncError("private Release B status is missing or unreadable") from error
+    if release_status.get("schema") != "release-b-collection-status/v1":
+        raise SyncError("unsupported private Release B status schema")
+    for key, path in (
+        ("schedule_sha256", release_b / "confirmatory_schedule.csv"),
+        ("ledger_sha256", release_b / "collection_ledger.csv"),
+    ):
+        actual = hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else ""
+        if actual != release_status.get(key):
+            raise SyncError(f"private Release B metadata hash mismatch for {path.name}")
 
 
 def sync_checkout(destination: Path = DESTINATION) -> None:
