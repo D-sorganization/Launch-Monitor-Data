@@ -16,7 +16,7 @@ launch-monitor-data validate
 
 The sync client clones the private
 `D-sorganization/Launch-Monitor-Flight-Model-Campaign` repository at the exact
-commit `78f0a42540e523ac883d843394b30a636311bf9d` recorded in
+commit `8cd8ad04bf2904eedd0d8f10d2aa202e437e91fd` recorded in
 `private_data.lock.json`. It does not accept a moving branch
 or silently download from third-party sources. Git ignores the checkout.
 
