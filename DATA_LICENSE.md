@@ -35,3 +35,31 @@ The publisher requests the following citation for research use:
   year={2025}
 }
 ```
+
+### Suzuki et al. 2021 (`suzuki_2021_trackman`)
+
+- **License:** CC BY 4.0 — The Open Sports Sciences Journal's editorial policy
+  licenses open-access articles under the Creative Commons Attribution 4.0
+  International Public License (https://creativecommons.org/licenses/by/4.0/).
+- **Article:** Suzuki T., Sheahan J.P., Miyazawa T., Okuda I., Ichikawa D.
+  "Comparison of TrackMan Data between Professional and Amateur Golfers at
+  Swinging to Uphill and Downhill Fairways", Open Sports Sci J 2021; 14:
+  137-143. DOI 10.2174/1875399X02114010137.
+- **Transcribed rows:** Table 1's group means and SDs — 24 `group_mean`
+  observations (six metrics × amateur/professional × uphill/downhill; n=25
+  amateur, n=42 professional) — recorded in the private authority's
+  `studies/aggregate_observations.csv` and its derived database, with
+  attribution carried by this section.
+
+Please cite the article above when reusing the transcribed statistics:
+```bibtex
+@article{suzuki2021trackman,
+  title={Comparison of TrackMan Data between Professional and Amateur Golfers at Swinging to Uphill and Downhill Fairways},
+  author={Suzuki, Takeru and Sheahan, John Patrick and Miyazawa, Taiki and Okuda, Isao and Ichikawa, Daisuke},
+  journal={The Open Sports Sciences Journal},
+  volume={14},
+  pages={137--143},
+  year={2021},
+  doi={10.2174/1875399X02114010137}
+}
+```
