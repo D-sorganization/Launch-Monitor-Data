@@ -38,7 +38,7 @@ def test_lock_pins_private_repository_to_full_commit() -> None:
         "D-sorganization/Launch-Monitor-Flight-Model-Campaign.git"
     )
     assert len(lock["commit"]) == 40
-    assert lock["commit"] == "b16cdd38151db7611d7add37e94a180e21834e06"
+    assert lock["commit"] == "1672d2d7524356fbb4f2a8d41fb314f75bac29df"
     assert paths.locked_private_commit() == lock["commit"]
     assert lock["authority_path"] == "data/authority"
 
@@ -122,5 +122,5 @@ def test_package_rejects_a_mismatched_private_commit(
     (authority / "AUTHORITY_MANIFEST.json").write_text("{}", encoding="utf-8")
     monkeypatch.setattr(paths, "private_checkout", lambda: checkout)
     monkeypatch.setattr(paths, "_git_head", lambda checkout: "0" * 40)
-    with pytest.raises(ValueError, match="expected b16cdd3"):
+    with pytest.raises(ValueError, match="expected 1672d2d"):
         paths.verify_locked_private_checkout()
