@@ -30,14 +30,15 @@ qualified cohorts. The locked authority reports 13,855 complete, non-imputed
 five-input rows; outcome-specific agreement sample sizes are smaller. These are
 vendor-output agreement cohorts, not independent ground truth.
 
-The authority's aggregate database carries **158 group-mean observations**
-across 91 registered sources, including the Suzuki 2021 outdoor TrackMan study
-(24 observations: professional and amateur cohorts on uphill and downhill
-fairways), the Robinson 2024 and Brennan 2024 TrackMan/Mevo+ cohort studies
-(4 and 8 observations), the Ichikawa 2022 X3 driver study (2 observations),
-and the Navarro 2022 Foresight GC2+HMT club-speed study (6 observations),
-each transcribed from its CC BY 4.0 tables. See `DATA_LICENSE.md` for
-the license basis of the ingested and transcribed sources.
+The authority's aggregate database carries **254 group-mean observations**
+across 91 registered sources, each transcribed from CC BY 4.0-licensed
+tables: the Suzuki 2021 outdoor TrackMan study (24 observations), the
+Robinson 2024 and Brennan 2024 cohort studies (4 and 8), the Ichikawa 2022
+X3 driver study (2), the Navarro 2022 Foresight GC2+HMT club-speed study
+(6), the Yang 2024 FlightScope Xi shaft-weight study (30), the Xiang 2025
+tDCS crossover study (24), and the Goswami 2025 warm-up study (42). See
+`DATA_LICENSE.md` for the license basis of the ingested and transcribed
+sources.
 
 Applications can inspect only hash-verified, data-free metadata from the
 authenticated checkout:
