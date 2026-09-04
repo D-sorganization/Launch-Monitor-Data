@@ -180,3 +180,130 @@ Please cite the article above when reusing the transcribed statistics:
   doi={10.3390/app12010358}
 }
 ```
+
+### Navarro et al. 2022 (`appsci_2022_insole_pressure`)
+
+- **License:** CC BY 4.0 — verified 2026-09-03 via Crossref license metadata
+  (vor) for Applied Sciences 12(1):358 (CC BY 4.0,
+  https://creativecommons.org/licenses/by/4.0/).
+- **Article:** Navarro E., Mancebo J.M., Farazi S., del Olmo M., Luengo D.
+  "Foot Insole Pressure Distribution during the Golf Swing in Professionals
+  and Amateur Players", Appl. Sci. 2022; 12(1):358.
+  DOI 10.3390/app12010358.
+- **Transcribed rows:** Table 1's club speeds at impact (Foresight GC2+HMT,
+  5 good shots per club, outdoor driving range) — 6 `group_mean`
+  observations (Driver and 5-Iron for professional n=15, medium-handicap
+  n=15, and high-handicap n=25 cohorts) recorded in the private authority's
+  `studies/aggregate_observations.csv` and its derived database, with
+  attribution carried by this section. The article's primary insole-pressure
+  percentages are not launch-monitor metrics and are not transcribed.
+
+```bibtex
+@article{navarro2022insole,
+  title={Foot Insole Pressure Distribution during the Golf Swing in Professionals and Amateur Players},
+  author={Navarro, Enrique and Mancebo, Juan M. and Farazi, Sadegh and del Olmo, Miguel and Luengo, David},
+  journal={Applied Sciences},
+  volume={12},
+  number={1},
+  pages={358},
+  year={2022},
+  doi={10.3390/app12010358}
+}
+```
+
+### Yang et al. 2024 (`frontiers_2024_shaft_weight`)
+
+- **License:** CC BY 4.0 — verified 2026-09-03 via Crossref license metadata
+  (vor) (CC BY 4.0, https://creativecommons.org/licenses/by/4.0/).
+- **Article:** Yang C-C, Chang C-C, Chao T, Tai H-L, Tsai Y-S. "The effects
+  of different iron shaft weights on golf swing performance", Front.
+  Bioeng. Biotechnol. 2024; 12:1343530. DOI 10.3389/fbioe.2024.1343530.
+- **Transcribed rows:** Table 3's shot-performance group means (FlightScope
+  Xi, indoor biomechanics laboratory; 5 test shots per club, best two
+  analyzed) — 30 `group_mean` observations: club speed, ball speed, carry,
+  total distance, and launch angle for low-handicap (n=10) and high-handicap
+  (n=10) groups across three 7-iron shaft weights (77/98/114 g), recorded
+  in the private authority's `studies/aggregate_observations.csv` and its
+  derived database, with attribution carried by this section. The study's
+  motion-capture kinematics (Table 4) and COG displacements (Table 5) are
+  not launch-monitor metrics and are not transcribed.
+
+```bibtex
+@article{yang2024shaft,
+  title={The effects of different iron shaft weights on golf swing performance},
+  author={Yang, Chia-Chen and Chang, Che-Chia and Chao, Te and Tai, Hsia-Ling and Tsai, Yung-Shen},
+  journal={Frontiers in Bioengineering and Biotechnology},
+  volume={12},
+  pages={1343530},
+  year={2024},
+  doi={10.3389/fbioe.2024.1343530}
+}
+```
+
+### Xiang et al. 2025 (`frontiers_2025_tdcs`)
+
+- **License:** CC BY 4.0 — verified 2026-09-03 via Crossref license metadata
+  (vor) (CC BY 4.0, https://creativecommons.org/licenses/by/4.0/).
+- **Article:** Xiang H., Moon H.W., Li L., Yoo K. "Enhancing golf swing
+  performance through M1-targeted transcranial direct current stimulation:
+  a double-blind, randomized crossover study", Front. Sports Act. Living
+  2025; 7:1615617. DOI 10.3389/fspor.2025.1615617.
+- **Transcribed rows:** Table 1's TrackMan 4 group means (Trackman
+  Performance Studio 7.0, standard indoor golf room; 10 swings per task, 3
+  valid consistent swings averaged) — 24 `group_mean` observations: club
+  speed, ball speed, and carry distance for the Driver and Iron 7 tasks
+  under active and sham tDCS, pre- and post-intervention (n=8 professional
+  golfers, crossover), recorded in the private authority's
+  `studies/aggregate_observations.csv` and its derived database, with
+  attribution carried by this section. Face angle and side distance are
+  reported without an explicit sign convention and the wedge-task errors
+  are target-relative accuracy measures rather than launch-monitor
+  ball-flight metrics, so all are honestly not transcribed.
+
+```bibtex
+@article{xiang2025tdcs,
+  title={Enhancing golf swing performance through M1-targeted transcranial direct current stimulation: a double-blind, randomized crossover study},
+  author={Xiang, Hongbin and Moon, Hwang Woon and Li, Lu and Yoo, Kyung},
+  journal={Frontiers in Sports and Active Living},
+  volume={7},
+  pages={1615617},
+  year={2025},
+  doi={10.3389/fspor.2025.1615617}
+}
+```
+
+### Goswami et al. 2025 (`maguire_warmup_junior`)
+
+- **License:** CC BY 4.0 — the IJSC editorial policies and reader information
+  state all articles are licensed under CC BY 4.0 (diamond open access;
+  authors retain copyright, Licensee IUSCA)
+  (CC BY 4.0, https://creativecommons.org/licenses/by/4.0/).
+- **Article:** Goswami C.L., Shepherd A.J., Langdown B.L., Knight J.M.,
+  Maguire A.J. "Acute Effects of Different Warm-Up Protocols on Junior
+  Golfers' Drive Performance", Int J Strength Cond 2025; 5(1).
+  DOI 10.47206/ijsc.v5i1.343.
+- **Transcribed rows:** Table 3's TrackMan 4 group means (covered driving
+  range with full outdoor ball flight; 15 drives per condition with mishits
+  filtered, 132 pooled shots per condition) — 42 `group_mean` observations:
+  attack angle, club path, club head speed, dynamic loft, face angle,
+  swing direction, swing plane, ball speed, carry distance, launch angle,
+  max height (apex), spin rate, total distance, and smash factor for the
+  control, dynamic, and RAMP warm-up conditions (n=13 junior golfers
+  analyzed of 15 recruited; own custom-fitted drivers), recorded in the
+  private authority's `studies/aggregate_observations.csv` and its derived
+  database, with attribution carried by this section. Dispersion uses
+  absolute values combining left and right deviations and the control
+  launch direction carries a sign discrepancy between the text and Table 3,
+  so both are honestly not transcribed.
+
+```bibtex
+@article{goswami2025warmup,
+  title={Acute Effects of Different Warm-Up Protocols on Junior Golfers' Drive Performance},
+  author={Goswami, Chris L. and Shepherd, Alan J. and Langdown, Ben L. and Knight, Jamie M. and Maguire, Andrew J.},
+  journal={International Journal of Strength and Conditioning},
+  volume={5},
+  number={1},
+  year={2025},
+  doi={10.47206/ijsc.v5i1.343}
+}
+```
