@@ -6,40 +6,41 @@ Keep this file current and concise. Replace instructional placeholders; do not a
 
 - Repository: `D-sorganization/Launch-Monitor-Data`
 - Working directory: `C:/tmp/wave2/Launch-Monitor-Data`
-- Branch: `bot/docs-dedupe-navarro-license`
-- Baseline commit: `08a6c8c18933b132002f38bb6ccc3ce3cbc05f6b`
+- Branch: `bot/observation-kind-aggregate-stamp`
+- Baseline commit: `08a6c8c18933b132002f38bb6ccc3ce3cbc05f6b` (plus merged main through the DATA_LICENSE dedupe)
 - Implementation commit: `SELF` — the commit containing this update; resolve with `git rev-parse HEAD`
-- Pull request: to be created after commit
-- Governing issue/epic: D-sorganization/Launch-Monitor-Data#14 (transcription campaign; this PR is attribution hygiene under it)
+- Pull request: #48 (open)
+- Governing issue/epic: D-sorganization/Launch-Monitor-Data#4 (data-side half; the reader/importer half is tracked in D-sorganization/UpstreamDrift#8365)
 
 ## Objective and Status
 
-- Objective: remove the duplicated `appsci_2022_insole_pressure` (Navarro et al. 2022) attribution section from `DATA_LICENSE.md`, keeping the later 2026-09-03 Crossref-verified section.
+- Objective: stamp `observation_kind` on every emitted metric observation so the UpstreamDrift aggregate export (`upstreamdrift_aggregate_metrics.csv`) and `metric_observations.csv`/SQLite carry the shot/aggregate discriminator that UpstreamDrift's `flexible_analysis` aggregate guard reads (it currently defaults unmarked rows to `"shot"`).
 - Status: complete
-- Completed: duplicate section removed; single `navarro2022insole` bibtex block remains; local test suite green.
-- Remaining: none for this PR. Launch-Monitor-Data#14 remains open for the 4 external license-request responses and Kaggle verification (external, not closable in-repo).
+- Completed: `_observation_kind` classifier added; `_normalize_observations` and `_normalize_aggregates` stamp the marker; SQLite `metric_observations` gains a `CHECK (observation_kind IN ('shot','aggregate'))` column; `docs/SCHEMA.md` updated (column block + contract prose); three new unit tests pin the contract; merged main's DATA_LICENSE dedupe preserved.
+- Remaining: UpstreamDrift-side reader/importer and analytics-UI surfacing (UpstreamDrift#8365); the private authority's next lock bump will regenerate the export with the new column.
 
 ## Files and Decisions
 
-- Files changed: `DATA_LICENSE.md` — deleted the older duplicate `### Navarro 2022 (appsci_2022_insole_pressure)` section (introduced alongside the newer section by concurrent attribution commits); `AGENT_HANDOFF.md` — created per Repository_Management handoff convention.
-- Key decisions: kept the newer section (`### Navarro et al. 2022`, verified 2026-09-03 via Crossref) because it carries the verification date; the newer sections on main omit the "Please cite" preamble sentence, so the kept section was left in the adjacent Yang/Xiang/Goswami style.
+- Files changed: `src/launch_monitor_data/build.py` (classifier + stamping + schema), `tests/test_build_normalization.py` (3 TDD tests, written red first), `docs/SCHEMA.md` (kept in lockstep per `test_schema_doc.py`), `AGENT_HANDOFF.md` (created per Repository_Management convention; add/add conflict with #47 resolved in favor of this version).
+- Key decisions: only exact `shot` aggregation level maps to `observation_kind="shot"`; every group statistic (including paired-comparison group means from `study_comparisons`) maps to `"aggregate"`, matching UpstreamDrift's guard semantics (`any(kind.lower() != "shot")`). Column is additive; consumers read it optionally.
 - User-owned or unrelated worktree changes: none observed.
 
 ## Validation
 
-- `python -m pytest tests -q` — pass, 46 passed.
-- `grep -c navarro2022insole DATA_LICENSE.md` — 1 (was 2).
+- `python -m pytest tests -q` — pass, 49 passed.
+- `python -m ruff check src tests` — pass.
+- SQLite round-trip smoke (`_create_database` with one aggregate row) — `observation_kind='aggregate'` persisted, table columns match `docs/SCHEMA.md`.
 
 ## Blockers and Risks
 
-- Blockers: none.
-- Risks/assumptions: docs-only change; no data, schema, or build behavior touched.
+- Blockers: none for this PR. #4's reader/UI acceptance bullets remain owned by UpstreamDrift#8365.
+- Risks/assumptions: additive column only; UpstreamDrift reads `observation_kind` as an optional field, so existing consumers tolerate it.
 
 ## Next Steps
 
-1. Merge PR and let the quality gate confirm.
-2. Continue Launch-Monitor-Data#14 external follow-ups (4 license-request responses, Kaggle authenticated verification).
+1. Merge PR #48 after the quality gate confirms on the conflict-resolved head.
+2. Land the UpstreamDrift importer (#8365) against this stamped export.
 
 ## Change Log
 
-- `SELF` — created handoff file; recorded DATA_LICENSE.md duplicate-removal decision.
+- `SELF` — created handoff file (this branch); recorded observation_kind contract decision and the #47 conflict resolution.
