@@ -23,8 +23,13 @@ is untouched by design.
 
 `metric_observations` enforces the **group-mean hard contract**: every row
 carries `aggregation_level`, constrained by a `CHECK` to the single value
-`'group_mean'`. Row-level data never enters this table; it lives in the shot
-corpus instead.
+`'group_mean'`, and an `observation_kind` marker (`CHECK`ed to `'shot'` or
+`'aggregate'`; group statistics are always `'aggregate'`). Row-level data
+never enters this table; it lives in the shot corpus instead. The
+UpstreamDrift export `upstreamdrift_aggregate_metrics.csv` mirrors these
+rows with the same `observation_kind` contract, so consumer-side shot-level
+comparison paths (which default unmarked rows to `"shot"`) can reject
+aggregate rows instead of silently pooling study means.
 
 ### Tables
 
@@ -45,7 +50,7 @@ columns: source_id, club, sample_count, metric, source_unit, trackman_mean, trac
 
 ```text
 relation: metric_observations
-columns: observation_id, source_id, monitor_vendor, monitor_model, software_version, environment, cohort, club, metric, aggregation_level, sample_count, measurement_status, reported_mean, reported_sd, reported_unit, canonical_mean, canonical_sd, canonical_unit, matched_shots
+columns: observation_id, source_id, monitor_vendor, monitor_model, software_version, environment, cohort, club, metric, aggregation_level, observation_kind, sample_count, measurement_status, reported_mean, reported_sd, reported_unit, canonical_mean, canonical_sd, canonical_unit, matched_shots
 ```
 
 ```text

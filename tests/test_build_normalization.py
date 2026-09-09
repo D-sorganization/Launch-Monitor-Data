@@ -9,6 +9,7 @@ from launch_monitor_data.build import (
     _normalize_observations,
     _normalize_references,
     _observation_id,
+    _observation_kind,
 )
 
 
@@ -20,6 +21,60 @@ def test_observation_id_is_deterministic_and_cohort_sensitive() -> None:
         "src", "Driver", "ball_speed", "TrackMan", cohort="tour", model="4"
     )
     assert cohort != base
+
+
+def test_normalize_observations_stamp_aggregate_observation_kind() -> None:
+    """Comparison rows are group means and must carry the aggregate marker."""
+    comparisons = [
+        {
+            "source_id": "study",
+            "club": "Driver",
+            "metric": "ball_speed",
+            "source_unit": "mph",
+            "sample_count": "10",
+            "measurement_status": "reported",
+            "software_version": "v1",
+            "environment": "indoor",
+            "trackman_mean": "150.0",
+            "trackman_sd": "2.0",
+            "flightscope_mean": "149.0",
+            "flightscope_sd": "2.5",
+        }
+    ]
+    rows = _normalize_observations(comparisons)
+    assert [row["observation_kind"] for row in rows] == ["aggregate", "aggregate"]
+
+
+def test_normalize_aggregates_stamp_aggregate_observation_kind() -> None:
+    """Aggregate rows must be marked so shot-level paths can reject them."""
+    aggregates = [
+        {
+            "source_id": "tour",
+            "monitor_vendor": "TrackMan",
+            "monitor_model": "4",
+            "software_version": "",
+            "environment": "outdoor",
+            "cohort": "pga_tour",
+            "club": "Driver",
+            "metric": "launch_angle",
+            "aggregation_level": "group_mean",
+            "sample_count": "500",
+            "measurement_status": "reported",
+            "reported_mean": "10.9",
+            "reported_sd": "",
+            "source_unit": "deg",
+            "matched_shots": "0",
+        }
+    ]
+    rows = _normalize_aggregates(aggregates)
+    assert rows[0]["observation_kind"] == "aggregate"
+
+
+def test_observation_kind_marks_only_row_level_shots() -> None:
+    assert _observation_kind("shot") == "shot"
+    assert _observation_kind("Shot") == "shot"
+    for level in ("group_mean", "study_mean", "median", ""):
+        assert _observation_kind(level) == "aggregate"
 
 
 def test_normalize_observations_emits_both_monitors_in_canonical_units() -> None:

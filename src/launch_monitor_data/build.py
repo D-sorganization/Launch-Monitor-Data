@@ -62,6 +62,16 @@ def _observation_id(
     return hashlib.sha256(payload).hexdigest()[:24]
 
 
+def _observation_kind(aggregation_level: str) -> str:
+    """Classify a metric observation per the UpstreamDrift contract.
+
+    Only row-level shots are ``shot``; every group statistic (including the
+    paired-comparison group means) is ``aggregate``, so downstream shot-level
+    comparison paths can reject it instead of silently pooling study means.
+    """
+    return "shot" if aggregation_level.strip().lower() == "shot" else "aggregate"
+
+
 def _normalize_observations(
     comparisons: list[dict[str, str]],
 ) -> list[dict[str, object]]:
@@ -94,6 +104,7 @@ def _normalize_observations(
                     "club": row["club"],
                     "metric": row["metric"],
                     "aggregation_level": "group_mean",
+                    "observation_kind": _observation_kind("group_mean"),
                     "sample_count": int(row["sample_count"]),
                     "measurement_status": row["measurement_status"],
                     "reported_mean": reported_mean,
@@ -147,6 +158,7 @@ def _normalize_aggregates(
                 "club": row["club"],
                 "metric": row["metric"],
                 "aggregation_level": row["aggregation_level"],
+                "observation_kind": _observation_kind(row["aggregation_level"]),
                 "sample_count": int(row["sample_count"]),
                 "measurement_status": row["measurement_status"],
                 "reported_mean": reported_mean,
@@ -289,6 +301,8 @@ def _create_database(
                 metric TEXT NOT NULL,
                 aggregation_level TEXT NOT NULL
                     CHECK (aggregation_level = 'group_mean'),
+                observation_kind TEXT NOT NULL
+                    CHECK (observation_kind IN ('shot', 'aggregate')),
                 sample_count INTEGER NOT NULL CHECK (sample_count > 0),
                 measurement_status TEXT NOT NULL,
                 reported_mean REAL NOT NULL,
