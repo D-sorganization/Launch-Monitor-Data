@@ -150,37 +150,6 @@ Please cite the article above when reusing the transcribed statistics:
 }
 ```
 
-### Navarro 2022 (`appsci_2022_insole_pressure`)
-
-- **License:** CC BY 4.0 — verified via Crossref license metadata (vor) for
-  Applied Sciences 12(1):358 (CC BY 4.0,
-  https://creativecommons.org/licenses/by/4.0/).
-- **Article:** Navarro E., Mancebo J.M., Farazi S., del Olmo M., Luengo D.
-  "Foot Insole Pressure Distribution during the Golf Swing in Professionals
-  and Amateur Players", Appl. Sci. 2022; 12(1):358.
-  DOI 10.3390/app12010358.
-- **Transcribed rows:** Table 1's club speeds at impact (Foresight GC2+HMT,
-  5 good shots per club, outdoor driving range) — 6 `group_mean` observations
-  (Driver and 5-Iron for professional n=15, medium-handicap n=15, and
-  high-handicap n=25 cohorts) recorded in the private authority's
-  `studies/aggregate_observations.csv` and its derived database, with
-  attribution carried by this section. The article's primary insole-pressure
-  percentages are not launch-monitor metrics and are not transcribed.
-
-Please cite the article above when reusing the transcribed statistics:
-```bibtex
-@article{navarro2022insole,
-  title={Foot Insole Pressure Distribution during the Golf Swing in Professionals and Amateur Players},
-  author={Navarro, Enrique and Mancebo, Juan M. and Farazi, Sadegh and del Olmo, Miguel and Luengo, David},
-  journal={Applied Sciences},
-  volume={12},
-  number={1},
-  pages={358},
-  year={2022},
-  doi={10.3390/app12010358}
-}
-```
-
 ### Navarro et al. 2022 (`appsci_2022_insole_pressure`)
 
 - **License:** CC BY 4.0 — verified 2026-09-03 via Crossref license metadata
