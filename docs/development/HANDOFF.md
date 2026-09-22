@@ -19,4 +19,6 @@
   post scope links on #8/#18 without roadmap labels or issue closure. Record
   receipts in the private fleet audit. Reuse the private collection plan rather
   than creating a second campaign.
+- Diff hygiene: preserved the original CRLF convention in README and the
+  development log; no source or test behavior changed in this formatting increment.
 - Earlier provider delivery context remains in the root AGENT_HANDOFF.md.
