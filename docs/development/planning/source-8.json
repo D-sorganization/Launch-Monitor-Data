@@ -1,0 +1,55 @@
+{
+  "body": "## Status as of 2026-09-19\n\n**Status as of 2026-09-19**\n- Architecture changed: data lives only in private LMFMC (PR #21); this repo is the contract + fail-closed client (`src/launch_monitor_data/`, `private_data.lock.json`).\n- Done: 91-source catalog, 254 CC-BY aggregate observations (8 studies transcribed, #14), 261,666-shot / 27-source Parquet corpus + reader (#23/#24/#26), canonical contract parity with UpstreamDrift (#24), Release A eligibility API (#29), Release B 252-pair schedule (0 collected, #32), observation_kind stamping (#48).\n- Workstreams: #2 dup of #18; #4 LMD half done, remainder UpstreamDrift#8365; #5 superseded by Release B schedule (private); #3/#6/#7 folded in as checklist lines; #18 license outreach remains the one open child (absorbs #16).\n- Next real evidence step is Release B collection (owner hold points: ball SKU, speed bands, hardware, calibration).\n\n---\n\n## Mission\nBuild a public, traceable, versioned launch-monitor evidence database for validating ball-flight models and characterizing differences among TrackMan, Foresight Sports, FlightScope, Garmin, Rapsodo, SkyTrak, Uneekor, and future systems.\n\n## Delivered in v0.1\n- 15-source provenance and rights catalog.\n- 95 source-backed vendor-field mappings across seven vendors.\n- 57 paired club/metric comparison records from a CC BY 4.0 TrackMan 4 versus FlightScope Mevo+ study (114 monitor-specific normalized observations).\n- Deterministic CSV and SQLite builds with validation, unit conversion, checksums, tests, and CI.\n- UpstreamDrift-compatible canonical metric names and SI-unit aggregate export.\n- Reference-only acquisition workflow that refuses silent redistribution of unlicensed public files.\n\n## Workstreams\n- [x] #2\n- [x] #3\n- [x] #4\n- [x] #5\n- [x] #6\n- [x] #7\n\n## Program Acceptance Gates\n- [ ] Every published row resolves to a source record, monitor identity, rights disposition, and transformation lineage.\n- [ ] Native raw files remain immutable; derived data is reproducible from versioned builders.\n- [ ] Monitor model, software/firmware, environment, ball/club, units, and measurement-vs-estimate status are recorded or explicitly unknown.\n- [ ] Aggregate statistics are never represented as individual shots or used to synthesize pseudo-shot training data.\n- [ ] Matched-shot evaluation separates vendor disagreement from session/player/source effects.\n- [ ] Train/test grouping prevents player, session, and acquisition-source leakage.\n- [ ] Claims distinguish observed agreement from inference about proprietary predictive algorithms.\n- [ ] UpstreamDrift contracts and integration tests remain compatible.\n- [ ] Public releases pass tests, lint, provenance validation, deterministic rebuild checks, and SQLite integrity checks.\n\n## Current Limitations\nThe redistributable v0.1 evidence is aggregate rather than shot-level. Public TrackMan, Rapsodo, and FlightScope example files without clear licenses are cataloged but not copied. Neural-network work is intentionally gated on licensed, sufficiently rich shot-level data.\n\n## Folded in from backlog triage 2026-09-19\n\n- [ ] Obtain at least one explicitly licensed native Foresight and FlightScope shot export (routes: Release B paired campaign in LMFMC, or #18 owner outreach); raw bytes immutable, field mappings cite vendor docs (from #3)\n- [ ] After Release B yields group-safe matched shots: linear/physical-residual baselines before NNs, grouped splits, bias/MAE/RMSE/calibration metrics, model cards, pinned training manifests (from #6)\n- [ ] Provenance drift: add firmware/app-version/normalization-mode fields with explicit unknown states to the contract, per-release source/transformation manifests, version-stratified drift checks, and migration notes for breaking mapping/unit changes (from #7)\n",
+  "html_url": "https://github.com/D-sorganization/Launch-Monitor-Data/issues/8",
+  "labels": [
+    {
+      "archived_at": null,
+      "archived_by": null,
+      "color": "5319E7",
+      "default": false,
+      "description": "Tracks a multi-issue program of work",
+      "id": 11753029077,
+      "name": "epic",
+      "node_id": "LA_kwDOTwPWiM8AAAACvIj91Q",
+      "url": "https://api.github.com/repos/D-sorganization/Launch-Monitor-Data/labels/epic"
+    },
+    {
+      "archived_at": null,
+      "archived_by": null,
+      "color": "0e8a16",
+      "default": false,
+      "description": "Reviewed in the 2026-09-19 backlog triage",
+      "id": 12267145249,
+      "name": "triaged-2026-09",
+      "node_id": "LA_kwDOTwPWiM8AAAAC2y3IIQ",
+      "url": "https://api.github.com/repos/D-sorganization/Launch-Monitor-Data/labels/triaged-2026-09"
+    },
+    {
+      "archived_at": null,
+      "archived_by": null,
+      "color": "ededed",
+      "default": false,
+      "description": null,
+      "id": 12267145322,
+      "name": "P1",
+      "node_id": "LA_kwDOTwPWiM8AAAAC2y3Iag",
+      "url": "https://api.github.com/repos/D-sorganization/Launch-Monitor-Data/labels/P1"
+    },
+    {
+      "archived_at": null,
+      "archived_by": null,
+      "color": "C5DEF5",
+      "default": false,
+      "description": "Active Codex lease",
+      "id": 12316221896,
+      "name": "claim:codex",
+      "node_id": "LA_kwDOTwPWiM8AAAAC3hqhyA",
+      "url": "https://api.github.com/repos/D-sorganization/Launch-Monitor-Data/labels/claim:codex"
+    }
+  ],
+  "number": 8,
+  "state": "open",
+  "title": "Epic: Public launch-monitor evidence and model-comparison database",
+  "updated_at": "2026-09-22T21:21:52Z",
+  "snapshot_before_lease_updated_at": "2026-09-19T18:03:14Z"
+}

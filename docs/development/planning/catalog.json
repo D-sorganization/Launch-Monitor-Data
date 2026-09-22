@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "repository": "D-sorganization/Launch-Monitor-Data",
+  "entries": [
+    {
+      "id": "DV-18",
+      "title": "Request redistribution licenses from GitHub shot-dataset owners",
+      "source_issue": "https://github.com/D-sorganization/Launch-Monitor-Data/issues/18",
+      "source_snapshot": "source-18.json",
+      "record": "DV-18.md",
+      "disposition": "split",
+      "kind": "external-review",
+      "status": "deferred",
+      "rationale": "Redistribution and third-party consent require rights-holder responses; source-license research and catalog updates are separate executable work.",
+      "prerequisites": [
+        {
+          "name": "Named authorized outreach owner and source-specific contact records",
+          "evidence": null
+        },
+        {
+          "name": "Explicit data licenses and player-consent confirmation where needed",
+          "evidence": null
+        }
+      ],
+      "acceptance": [
+        "Preserve the original prioritized owner/study outreach list and track licensed, declined or no-response outcomes after a stated waiting period.",
+        "Bind any changed redistribution status to actual permissions and refreshed source identities; reference-only data remains restricted."
+      ],
+      "board": {
+        "decision": "pending",
+        "evidence": null
+      },
+      "activation_issue": null
+    },
+    {
+      "id": "DV-8",
+      "title": "Epic: Public launch-monitor evidence and model-comparison database",
+      "source_issue": "https://github.com/D-sorganization/Launch-Monitor-Data/issues/8",
+      "source_snapshot": "source-8.json",
+      "record": "DV-8.md",
+      "disposition": "split",
+      "kind": "physical-measurement",
+      "status": "deferred",
+      "rationale": "The next matched-shot evidence stage depends on the private Release B collection campaign and explicit source rights.",
+      "prerequisites": [
+        {
+          "name": "Authorized native paired-device exports supplied through the owning campaign",
+          "evidence": null
+        },
+        {
+          "name": "Verified rights, calibration/firmware/environment identity and group-safe acquisition metadata",
+          "evidence": null
+        }
+      ],
+      "acceptance": [
+        "Keep immutable native bytes and lineage; do not manufacture shot-level data from aggregates.",
+        "Use group-safe matched shots for bias/MAE/RMSE/calibration and physical-residual baselines before neural models.",
+        "Keep the public contract/facade fail-closed until the owning campaign qualifies its evidence."
+      ],
+      "board": {
+        "decision": "pending",
+        "evidence": null
+      },
+      "activation_issue": null
+    }
+  ]
+}
