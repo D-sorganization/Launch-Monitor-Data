@@ -5,6 +5,14 @@ an authenticated sync client. Real launch-monitor data, published value tables,
 source snapshots, normalized databases, and row-level derived artifacts are
 stored only in D-sorganization's private data authority.
 
+## Future Validation Planning
+
+[The Board planning catalog](docs/development/planning/README.md) separates
+unavailable physical collection and rights-holder decisions from active client,
+provenance and existing-source research work. Issues #8 and #18 remain open for
+those executable slices. Plans provide no measurements, permission or consent;
+private data continues to live only in the governed private authority.
+
 ## Authorized setup
 
 ```powershell

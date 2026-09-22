@@ -1,3 +1,8 @@
+# Current Planning Handoff
+
+See [the canonical handoff](docs/development/HANDOFF.md) for the #8/#18 external-work
+split at commit `SELF`. The following provider checkpoint is historical.
+
 # Implementation Handoff
 
 Keep this file current and concise. Replace instructional placeholders; do not append an unbounded transcript.

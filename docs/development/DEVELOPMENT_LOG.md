@@ -18,6 +18,33 @@ reachable from any live state and `abandoned` from `parked`.
 
 ## Active
 
+### DL-#8 - Deferred Paired Data Dependency
+
+- **State:** in_progress
+- **Owner:** codex (planning migration)
+- **Issue:** #8
+- **Branch:** `docs/deferred-validation-planning`
+- **PR:** not created
+- **Paths:** `docs/development/planning/DV-8.md`, `docs/development/planning/source-8.json`
+- **Started:** 2026-09-22
+- **Last verified:** 2026-09-22 (base `93d6435` plus planning changes; 49 tests, catalog and Ruff pass; local mypy has one unchanged corpus.py:193 unused-ignore error)
+- **Summary:** External obligations are deferred for Board consideration; the mixed source issue stays active for software and source research.
+- **Next step:** Publish the planning PR and link the scope split on #8.
+
+### DL-#18 - Deferred External Rights Decisions
+
+- **State:** in_progress
+- **Owner:** codex (planning migration)
+- **Issue:** #18
+- **Branch:** `docs/deferred-validation-planning`
+- **PR:** not created
+- **Paths:** `docs/development/planning/DV-18.md`, `docs/development/planning/source-18.json`
+- **Started:** 2026-09-22
+- **Last verified:** 2026-09-22 (base `93d6435` plus planning changes; 49 tests, catalog and Ruff pass; local mypy has one unchanged corpus.py:193 unused-ignore error)
+- **Summary:** External obligations are deferred for Board consideration; the mixed source issue stays active for software and source research.
+- **Next step:** Publish the planning PR and link the scope split on #18.
+
+
 ### DL-0001 · Chore Bump Private Lock 1672D2D
 
 - **State:** parked

@@ -1,0 +1,55 @@
+{
+  "body": "## Status as of 2026-09-19\n\n**Status as of 2026-09-19**\n- Catalog and hashes now live in private LMFMC (`data/authority/catalog/`), not `data/source_catalog.csv`; update paths when a license lands.\n- All 13 datasets are already parsed into the private 261,666-shot corpus (PR #23) - outreach changes redistribution status only.\n- Absorbed: #2 (Blackmore 10,169-shot TrackMan corpus, sha fae80d32...) and #16 (Kaggle jamieb122 R50 verification).\n- Also add the 4 NOASSERTION studies from #14 (Bliss 2021, Wells 2025, MacKenzie 2020, Sweeney 2009) to the outreach list.\n- No owner contacted yet; needs a human to send the requests.\n\n---\n\n## Context\n\nThirteen hash-pinned GitHub shot-level datasets in the catalog have **no stated license**, so roughly 5,000 real shots (TrackMan, Mevo/Mevo+, Garmin R10/R50, SkyTrak, Rapsodo MLM2PRO, Square Golf, Awesome Golf) remain reference-only: `dmombo_mevo_plus_db`, `jacqzang_trackman_practice`, `jgamblin_garmin_r10_sessions`, `hoffpauir_skytrak_sessions`, `sghill_mevo_range`, `callejo_trackman_sessions`, `j72jones_trackman_7iron`, `mmender2_mlm2pro_clubs`, `ummerr_garmin_r50_ledger`, `tomcox_garmin_range`, `mpgentleman_awesome_golf_sample`, `bluedaniel_square_gapping`, plus the original `blackmore_trackman_10169`.\n\n## Work\n\n- [ ] Prioritize by value: Blackmore (10,169 TrackMan shots), dmombo (2,264 Mevo+ shots), jacqzang (1,184 TrackMan shots), jgamblin (16 R10 sessions with weather columns) first.\n- [ ] Open a polite issue on each repository (or use the contact in its README) asking the owner to add a license (suggest CC BY 4.0 or CC0 for the data files) and to confirm the data is their own and free of other players' personal information; link this project's CONTRIBUTING policy.\n- [ ] Track responses per source; when a license lands, update the catalog (`license_spdx`, `pinned_ref`/`sha256` refresh) and queue the dataset for shot-level ingestion.\n- [ ] Note datasets with named third parties (dmombo, callejo) will also need player-consent confirmation per CONTRIBUTING before redistribution regardless of license.\n\n## Acceptance\n\nEvery listed owner has been contacted with a tracked outcome (licensed, declined, or no response after a stated waiting period), and the catalog reflects any license changes.\n\n## Folded in from backlog triage 2026-09-19\n\n- [ ] Verify `kaggle_jamieb122_r50` (kaggle.com/datasets/jamieb122/golf-swing-and-trajectory-data): record Kaggle license, row count, schema, SHA-256 pin in the LMFMC catalog; flag for corpus ingestion if redistributable (from #16)\n",
+  "html_url": "https://github.com/D-sorganization/Launch-Monitor-Data/issues/18",
+  "labels": [
+    {
+      "archived_at": null,
+      "archived_by": null,
+      "color": "5319E7",
+      "default": false,
+      "description": "Tracks a multi-issue program of work",
+      "id": 11753029077,
+      "name": "epic",
+      "node_id": "LA_kwDOTwPWiM8AAAACvIj91Q",
+      "url": "https://api.github.com/repos/D-sorganization/Launch-Monitor-Data/labels/epic"
+    },
+    {
+      "archived_at": null,
+      "archived_by": null,
+      "color": "0e8a16",
+      "default": false,
+      "description": "Reviewed in the 2026-09-19 backlog triage",
+      "id": 12267145249,
+      "name": "triaged-2026-09",
+      "node_id": "LA_kwDOTwPWiM8AAAAC2y3IIQ",
+      "url": "https://api.github.com/repos/D-sorganization/Launch-Monitor-Data/labels/triaged-2026-09"
+    },
+    {
+      "archived_at": null,
+      "archived_by": null,
+      "color": "ededed",
+      "default": false,
+      "description": null,
+      "id": 12267147006,
+      "name": "P2",
+      "node_id": "LA_kwDOTwPWiM8AAAAC2y3O_g",
+      "url": "https://api.github.com/repos/D-sorganization/Launch-Monitor-Data/labels/P2"
+    },
+    {
+      "archived_at": null,
+      "archived_by": null,
+      "color": "C5DEF5",
+      "default": false,
+      "description": "Active Codex lease",
+      "id": 12316221896,
+      "name": "claim:codex",
+      "node_id": "LA_kwDOTwPWiM8AAAAC3hqhyA",
+      "url": "https://api.github.com/repos/D-sorganization/Launch-Monitor-Data/labels/claim:codex"
+    }
+  ],
+  "number": 18,
+  "state": "open",
+  "title": "Request redistribution licenses from GitHub shot-dataset owners",
+  "updated_at": "2026-09-22T21:21:54Z",
+  "snapshot_before_lease_updated_at": "2026-09-19T18:03:13Z"
+}
