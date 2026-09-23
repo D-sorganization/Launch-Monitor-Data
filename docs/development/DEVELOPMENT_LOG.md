@@ -18,9 +18,22 @@ reachable from any live state and `abandoned` from `parked`.
 
 ## Active
 
-### DL-#59 · Deferred Validation Project Projection
+### DL-#63 - Deferred Catalog Enforcement
 
 - **State:** in_review
+- **Owner:** codex
+- **Issue:** #63; full rollout Repository_Management#1687
+- **Branch:** `chore/63-deferred-catalog-guard`
+- **PR:** #64
+- **Paths:** `shared_scripts/`, `.pre-commit-config.yaml`, `pyproject.toml`, `tests/test_deferred_catalog_hook.py`, `docs/development/`, `AGENTS.md`, `CLAUDE.md`, `README.md`
+- **Started:** 2026-09-23
+- **Last verified:** SELF (five RED absent-hook/receipt failures; 54 GREEN tests including configured command and exact bundle hashes; actual hook, Ruff lint/format and new-test strict mypy pass; unchanged corpus.py:193 full-mypy limitation retained)
+- **Summary:** Enforces the two published catalogs without changing original scope, source snapshots, private data pins or rights/consent boundaries.
+- **Next step:** Complete repository checks, publish and verify exact default-branch adoption.
+
+### DL-#59 · Deferred Validation Project Projection
+
+- **State:** shipped
 - **Owner:** codex
 - **Issue:** #59; parents Repository_Management#1687 and Runner_Dashboard#1248
 - **Branch:** `docs/deferred-project-projection`
@@ -29,7 +42,7 @@ reachable from any live state and `abandoned` from `parked`.
 - **Started:** 2026-09-23
 - **Last verified:** 2026-09-23 (265bcc7 plus docs; strict catalog and both parsers pass, two parked plans/six decisions; 49 tests and Ruff pass; unchanged local corpus.py:193 typing limitation retained)
 - **Summary:** Exposes both published external dependencies and pending decisions without inventing evidence or authority. Existing client, rights and data-custody contracts are preserved.
-- **Next step:** Protected publication, default-branch verification, then actual deployed Projects/staff adoption under the fleet parents.
+- **Next step:** #60 merged as 16001c7; both parked owner plans are verified in the running dashboard. Enforcement continues in DL-#63.
 
 ### DL-#8 - Deferred Paired Data Dependency
 
@@ -42,7 +55,7 @@ reachable from any live state and `abandoned` from `parked`.
 - **Started:** 2026-09-22
 - **Last verified:** 2026-09-22 (base `93d6435` plus planning changes; 49 tests, catalog and Ruff pass; local mypy has one unchanged corpus.py:193 unused-ignore error)
 - **Summary:** External obligations are deferred for Board consideration; the mixed source issue stays active for software and source research.
-- **Next step:** Publish the planning PR and link the scope split on #8.
+- **Next step:** Owner plan is published; executable #8 work stays active and unavailable physical collection remains deferred.
 
 ### DL-#18 - Deferred External Rights Decisions
 
@@ -55,7 +68,7 @@ reachable from any live state and `abandoned` from `parked`.
 - **Started:** 2026-09-22
 - **Last verified:** 2026-09-22 (base `93d6435` plus planning changes; 49 tests, catalog and Ruff pass; local mypy has one unchanged corpus.py:193 unused-ignore error)
 - **Summary:** External obligations are deferred for Board consideration; the mixed source issue stays active for software and source research.
-- **Next step:** Publish the planning PR and link the scope split on #18.
+- **Next step:** Owner plan is published; executable #18 source research stays active and rights-holder decisions remain deferred.
 
 
 ### DL-0001 · Chore Bump Private Lock 1672D2D
