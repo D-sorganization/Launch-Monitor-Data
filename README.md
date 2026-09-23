@@ -13,6 +13,11 @@ provenance and existing-source research work. Issues #8 and #18 remain open for
 those executable slices. Plans provide no measurements, permission or consent;
 private data continues to live only in the governed private authority.
 
+After installing `.[dev]`, run
+`python -m pre_commit run deferred-validation --all-files` to validate the owner
+catalog. The existing Python suite exercises this same command and verifies
+shared-file hashes. Passing software checks supply no measurement or permission.
+
 ## Authorized setup
 
 ```powershell

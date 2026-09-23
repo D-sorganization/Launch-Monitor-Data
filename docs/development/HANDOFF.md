@@ -1,3 +1,33 @@
+# Deferred Catalog Enforcement - #63
+
+- Worktree: `C:/Users/diete/Repositories/Worktrees/Launch-Monitor-Data-deferred-guard`.
+  Branch `chore/63-deferred-catalog-guard`; base `308a1ed`; commit `SELF`; PR not created.
+- Governing issue #63; full fleet rollout Repository_Management#1687 remains open.
+- Exact three-file validator bundle from central `0a104101`, pinned SHA-256 receipt,
+  always-run local hook and five configured-command/digest tests in the existing
+  Python CI suite. Invalid activation, missing checker and competing catalog fail.
+  Both original plans, source snapshots and the private-data lock stay unchanged.
+- Synchronizes only the approved deferred-validation managed block from central
+  `a59cb194`; v1 fields remain distinct from new-adopter fields. Developer tooling
+  includes pre-commit, PyYAML and its typing stubs. No external data is downloaded.
+- TDD: five missing-hook/receipt RED failures, then all 54 Python tests pass.
+  Root Ruff lint/format (20 files), the actual pre-commit hook and strict typing
+  of the new consumer test pass. Full local mypy retains the previously documented
+  unused-ignore failure at unchanged corpus.py:193 (17 files checked). No ignore
+  or typing gate was relaxed; hosted Python 3.12 qualification remains required.
+  All original planning bytes, private-data lock and three bundle hashes match.
+- Commands: `python -m pytest -q`, `python -m ruff check .`,
+  `python -m ruff format --check .`, `python -m mypy`,
+  `python -m pre_commit run deferred-validation --all-files`.
+- Previous view #60 merged at `16001c7`; both parked owner plans are visible in
+  the deployed Projects API/UI. Source issues #8/#18 retain executable software
+  and existing-source research; resource/rights decisions stay deferred.
+- Next: publish through protected CI, and verify default-branch
+  bundle/hook/rule bytes. No rights-holder contact, consent, calibration or
+  physical/perceptual validation is authorized or supplied by this deployment.
+
+---
+
 # Deferred Validation Project Projection — #59
 
 - Worktree: `C:/Users/diete/Repositories/Worktrees/Launch-Monitor-Data-deferred-project`.
