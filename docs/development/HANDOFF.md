@@ -1,7 +1,7 @@
 # Deferred Catalog Enforcement - #63
 
 - Worktree: `C:/Users/diete/Repositories/Worktrees/Launch-Monitor-Data-deferred-guard`.
-  Branch `chore/63-deferred-catalog-guard`; base `308a1ed`; commit `SELF`; PR not created.
+  Branch `chore/63-deferred-catalog-guard`; base `308a1ed`; commit `SELF`; PR [#64](https://github.com/D-sorganization/Launch-Monitor-Data/pull/64), protected auto-merge armed.
 - Governing issue #63; full fleet rollout Repository_Management#1687 remains open.
 - Exact three-file validator bundle from central `0a104101`, pinned SHA-256 receipt,
   always-run local hook and five configured-command/digest tests in the existing

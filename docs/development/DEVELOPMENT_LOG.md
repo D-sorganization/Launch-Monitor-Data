@@ -24,7 +24,7 @@ reachable from any live state and `abandoned` from `parked`.
 - **Owner:** codex
 - **Issue:** #63; full rollout Repository_Management#1687
 - **Branch:** `chore/63-deferred-catalog-guard`
-- **PR:** not created
+- **PR:** #64
 - **Paths:** `shared_scripts/`, `.pre-commit-config.yaml`, `pyproject.toml`, `tests/test_deferred_catalog_hook.py`, `docs/development/`, `AGENTS.md`, `CLAUDE.md`, `README.md`
 - **Started:** 2026-09-23
 - **Last verified:** SELF (five RED absent-hook/receipt failures; 54 GREEN tests including configured command and exact bundle hashes; actual hook, Ruff lint/format and new-test strict mypy pass; unchanged corpus.py:193 full-mypy limitation retained)
