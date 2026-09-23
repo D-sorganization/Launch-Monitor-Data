@@ -2,7 +2,7 @@
 
 - Worktree: `C:/Users/diete/Repositories/Worktrees/Launch-Monitor-Data-deferred-project`.
   Branch `docs/deferred-project-projection`; base `265bcc7`; commit `SELF`.
-  PR: not created. Governing issue #59; parents Repository_Management#1687 and
+  PR: [#60](https://github.com/D-sorganization/Launch-Monitor-Data/pull/60), open. Governing issue #59; parents Repository_Management#1687 and
   Runner_Dashboard#1248. Development-log entry DL-#59.
 - Added initial project charter/status views for DV-8 and DV-18, with owner links,
   parked status and six pending Board/prerequisite decisions. Counts describe

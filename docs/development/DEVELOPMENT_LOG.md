@@ -20,11 +20,11 @@ reachable from any live state and `abandoned` from `parked`.
 
 ### DL-#59 · Deferred Validation Project Projection
 
-- **State:** in_progress
+- **State:** in_review
 - **Owner:** codex
 - **Issue:** #59; parents Repository_Management#1687 and Runner_Dashboard#1248
 - **Branch:** `docs/deferred-project-projection`
-- **PR:** not created
+- **PR:** https://github.com/D-sorganization/Launch-Monitor-Data/pull/60
 - **Paths:** `docs/project/`, `docs/development/HANDOFF.md`
 - **Started:** 2026-09-23
 - **Last verified:** 2026-09-23 (265bcc7 plus docs; strict catalog and both parsers pass, two parked plans/six decisions; 49 tests and Ruff pass; unchanged local corpus.py:193 typing limitation retained)
