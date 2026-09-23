@@ -18,6 +18,19 @@ reachable from any live state and `abandoned` from `parked`.
 
 ## Active
 
+### DL-#59 · Deferred Validation Project Projection
+
+- **State:** in_progress
+- **Owner:** codex
+- **Issue:** #59; parents Repository_Management#1687 and Runner_Dashboard#1248
+- **Branch:** `docs/deferred-project-projection`
+- **PR:** not created
+- **Paths:** `docs/project/`, `docs/development/HANDOFF.md`
+- **Started:** 2026-09-23
+- **Last verified:** 2026-09-23 (265bcc7 plus docs; strict catalog and both parsers pass, two parked plans/six decisions; 49 tests and Ruff pass; unchanged local corpus.py:193 typing limitation retained)
+- **Summary:** Exposes both published external dependencies and pending decisions without inventing evidence or authority. Existing client, rights and data-custody contracts are preserved.
+- **Next step:** Protected publication, default-branch verification, then actual deployed Projects/staff adoption under the fleet parents.
+
 ### DL-#8 - Deferred Paired Data Dependency
 
 - **State:** in_progress
