@@ -40,7 +40,7 @@ reachable from any live state and `abandoned` from `parked`.
 - **PR:** https://github.com/D-sorganization/Launch-Monitor-Data/pull/60
 - **Paths:** `docs/project/`, `docs/development/HANDOFF.md`
 - **Started:** 2026-09-23
-- **Last verified:** 2026-09-23 (265bcc7 plus docs; strict catalog and both parsers pass, two parked plans/six decisions; 49 tests and Ruff pass; unchanged local corpus.py:193 typing limitation retained)
+- **Last verified:** 2026-10-02 (project-steward status refresh; catalog still validates clean and unchanged, no merges/issues/PRs moved since 2026-09-23; added first-appeared dates to STATUS.md Decisions Needed items, no feature status changed)
 - **Summary:** Exposes both published external dependencies and pending decisions without inventing evidence or authority. Existing client, rights and data-custody contracts are preserved.
 - **Next step:** #60 merged as 16001c7; both parked owner plans are verified in the running dashboard. Enforcement continues in DL-#63.
 
