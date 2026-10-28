@@ -2,24 +2,29 @@
 
 # Launch Monitor Data Project Status
 
-Last reviewed by project-steward on 2026-10-15: no open issues, no open PRs,
-and CI on `main` green (latest run 2026-10-11). Commits since the 2026-10-02
-projection (#70-#78) are routine fleet-managed-section syncs and merge-queue
-CI wiring (Repository_Management#1890, #1900); none touches DV-8/DV-18 or
-their evidence. The deferred-validation catalog
-(`docs/development/planning/catalog.json`) still validates clean
-(`python3 -m shared_scripts.deferred_validation --repo-root .`) and is
-unchanged — both records remain `board.decision: pending` with no evidence.
-No scheduled Staff Hub execution, collected shots or rights-holder approval is
-asserted. These two scopes are external dependencies, not a whole-repository
-progress assessment.
+Last reviewed by project-steward on 2026-10-28. GitHub shows no open issues or
+pull requests. Since the 2026-10-15 review, PRs #80-#86 merged: #80 added the
+repository's automerge guard; #81-#86 synced fleet-managed agent guidance.
+These changes did not advance the DV-8 or DV-18 plans. Issues #8 and #18 were
+closed as `not_planned` on 2026-10-14; that disposition does not complete their
+deferred validations. The owner catalog remains valid and unchanged
+(`python3 -m shared_scripts.deferred_validation --repo-root .`), with both
+records deferred and their Board decisions pending. Planning check:
+`python3 -m shared_scripts.deferred_planning docs/development/planning`.
+
+CI on `main` is green: latest run #40154414266 on 2026-10-25 completed
+successfully, and both current `quality-gate` check runs succeeded. The local
+Runner Dashboard summary timed out, and `docs/fleet-in-flight.md` is absent
+from this checkout, so no live fleet execution or hold state is asserted.
+These two scopes are external dependencies, not a whole-repository progress
+assessment.
 
 ## Progress
 
 | ID | Feature | Status | Progress | Last Change |
 | --- | --- | --- | --- | --- |
-| DV-8 | Qualified paired-device evidence | parked | Awaiting verified prerequisites | 2026-09-23 |
-| DV-18 | Redistribution and consent decisions | parked | Awaiting verified prerequisites | 2026-09-23 |
+| DV-8 | Qualified paired-device evidence | parked | Awaiting verified prerequisites; source issue #8 closed `not_planned` | 2026-10-14 |
+| DV-18 | Redistribution and consent decisions | parked | Awaiting verified prerequisites; source issue #18 closed `not_planned` | 2026-10-14 |
 
 ## Blockers
 
@@ -27,24 +32,41 @@ Native paired-device exports and their rights/calibration/acquisition identities
 are unavailable for this next stage. External permissions and accountable
 outreach ownership remain unverified. Existing public-client and cohort guards
 continue to enforce their current contracts; no private lock or eligibility
-policy changes are implied.
+policy changes are implied. The closed issue dispositions do not change the
+catalog's deferred status or supply approval, resources, measurements, or
+rights-holder evidence.
 
 ## Decisions Needed
 
-All items below first appeared 2026-09-23 and are now 22 days old as of this
-2026-10-15 review, past the 14-day Board-proposal age threshold
-(crossed 2026-10-07). The two resourcing items are architectural (whether to
-fund/resource each Owner Plan at all) and qualify for Board submission under
-the playbook; this run could not call the `submit_proposal` fleet tool (not
-exposed to this session/worktree), so submission is flagged here rather than
-claimed. The next steward pass with that tool available should submit them.
+The resourcing decisions below first appeared 2026-09-23 and are 35 days old
+as of this review. They are architectural Board questions under the steward
+playbook. No `submit_proposal` fleet tool is exposed in this session, so no
+proposal was submitted and none is claimed. The local Runner Dashboard API
+summary also timed out. The catalog continues to record both decisions as
+pending.
 
-- DV-8 (first appeared 2026-09-23, Board-eligible since 2026-10-07): Board decision pending on whether to resource the [Owner Plan](https://github.com/D-sorganization/Launch-Monitor-Data/blob/main/docs/development/planning/DV-8.md); accountable owner, funding, access dates and execution capacity remain unverified.
-- DV-8 (first appeared 2026-09-23): Decide how to obtain authorized native paired-device exports through the owning campaign; prerequisite evidence remains unavailable.
-- DV-8 (first appeared 2026-09-23): Decide how to qualify rights, calibration/firmware/environment identity and group-safe acquisition metadata; prerequisite evidence remains unavailable.
-- DV-18 (first appeared 2026-09-23, Board-eligible since 2026-10-07): Board decision pending on whether to resource the [Owner Plan](https://github.com/D-sorganization/Launch-Monitor-Data/blob/main/docs/development/planning/DV-18.md); accountable owner, funding, access dates and execution capacity remain unverified.
-- DV-18 (first appeared 2026-09-23): Assign an authorized outreach owner and source-specific contact records before any outreach; ownership and authorization remain unverified.
-- DV-18 (first appeared 2026-09-23): Decide how to obtain explicit data licenses and participant-consent confirmation where needed; actual permissions remain unavailable.
+- DV-8 (first appeared 2026-09-23): Decide whether to resource the [Owner
+  Plan](https://github.com/D-sorganization/Launch-Monitor-Data/blob/main/docs/development/planning/DV-8.md);
+  accountable owner, funding, access dates and execution capacity remain
+  unverified. Issue #8 is closed `not_planned`; this does not record a Board
+  decision on the plan.
+- DV-8 (first appeared 2026-09-23): Decide how to obtain authorized native
+  paired-device exports through the owning campaign; prerequisite evidence
+  remains unavailable.
+- DV-8 (first appeared 2026-09-23): Decide how to qualify rights,
+  calibration/firmware/environment identity and group-safe acquisition
+  metadata; prerequisite evidence remains unavailable.
+- DV-18 (first appeared 2026-09-23): Decide whether to resource the [Owner
+  Plan](https://github.com/D-sorganization/Launch-Monitor-Data/blob/main/docs/development/planning/DV-18.md);
+  accountable owner, funding, access dates and execution capacity remain
+  unverified. Issue #18 is closed `not_planned`; this does not record a Board
+  decision on the plan.
+- DV-18 (first appeared 2026-09-23): Assign an authorized outreach owner and
+  source-specific contact records before any outreach; ownership and
+  authorization remain unverified.
+- DV-18 (first appeared 2026-09-23): Decide how to obtain explicit data
+  licenses and participant-consent confirmation where needed; actual
+  permissions remain unavailable.
 
 ## Reactivation
 
