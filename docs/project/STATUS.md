@@ -2,22 +2,22 @@
 
 # Launch Monitor Data Project Status
 
-Last reviewed by project-steward on 2026-10-28. GitHub shows no open issues or
-pull requests. Since the 2026-10-15 review, PRs #80-#86 merged: #80 added the
-repository's automerge guard; #81-#86 synced fleet-managed agent guidance.
-These changes did not advance the DV-8 or DV-18 plans. Issues #8 and #18 were
-closed as `not_planned` on 2026-10-14; that disposition does not complete their
-deferred validations. The owner catalog remains valid and unchanged
+Last reviewed by project-steward on 2026-11-23. GitHub shows no open issues or
+pull requests. Since the 2026-10-28 review, PRs #88-#90 merged (2026-11-01,
+2026-11-08, 2026-11-15); all three synced fleet-managed agent guidance and did
+not advance the DV-8 or DV-18 plans. Issues #8 and #18 remain closed as
+`not_planned` (2026-10-14); that disposition does not complete their deferred
+validations. The owner catalog and plans are unchanged since the prior review
+and validate cleanly
 (`python3 -m shared_scripts.deferred_validation --repo-root .`), with both
 records deferred and their Board decisions pending. Planning check:
 `python3 -m shared_scripts.deferred_planning docs/development/planning`.
 
-CI on `main` is green: latest run #40154414266 on 2026-10-25 completed
-successfully, and both current `quality-gate` check runs succeeded. The local
-Runner Dashboard summary timed out, and `docs/fleet-in-flight.md` is absent
-from this checkout, so no live fleet execution or hold state is asserted.
-These two scopes are external dependencies, not a whole-repository progress
-assessment.
+CI on `main` is green: the latest three `Validate Public Boundary` runs
+(#41264705855, #42438143233, #43667326093; 2026-11-01 to 2026-11-15) all
+succeeded. The Runner Dashboard summary reports no other active work on this
+repository and no hold affecting it. These two scopes are external
+dependencies, not a whole-repository progress assessment.
 
 ## Progress
 
@@ -38,12 +38,14 @@ rights-holder evidence.
 
 ## Decisions Needed
 
-The resourcing decisions below first appeared 2026-09-23 and are 35 days old
-as of this review. They are architectural Board questions under the steward
-playbook. No `submit_proposal` fleet tool is exposed in this session, so no
-proposal was submitted and none is claimed. The local Runner Dashboard API
-summary also timed out. The catalog continues to record both decisions as
-pending.
+The resourcing decisions below first appeared 2026-09-23 and are 61 days old
+as of this review, past the 14-day proposal age limit. They are architectural
+Board questions under the steward playbook. For the third straight review, no
+`submit_proposal` fleet tool was available to this session: it is not exposed,
+there is no `shared_scripts.board_proposals` module in this checkout, and the
+dashboard `/api/staff/board` endpoint returned no data. No proposal was
+submitted and none is claimed. The catalog continues to record both decisions
+as pending.
 
 - DV-8 (first appeared 2026-09-23): Decide whether to resource the [Owner
   Plan](https://github.com/D-sorganization/Launch-Monitor-Data/blob/main/docs/development/planning/DV-8.md);
