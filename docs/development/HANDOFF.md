@@ -1,3 +1,25 @@
+# Project Steward Status Refresh - 2026-11-23
+
+- Branch `staff/project-steward-task-55a1f7`; base `92e91d8`. This is a
+  routine scheduled project-steward pass with no governing issue.
+- Reviewed CHARTER.md, STATUS.md and GitHub issues and PRs (none open). Since
+  the last review, merged PRs #88-#90 synced fleet guidance only. `main` CI is
+  green: the latest three runs succeeded, the newest being #43667326093 on
+  2026-11-15.
+- STATUS.md now records the review date, merges, CI evidence and the decisions'
+  age (61 days). CHARTER.md is unchanged and both features stay parked. No
+  source or test files changed.
+- `submit_proposal` is still unavailable: the tool is not exposed, the
+  `shared_scripts.board_proposals` module is absent, and `/api/staff/board`
+  returned no data. No proposal is claimed.
+- Validation: the deferred_validation and deferred_planning CLIs pass.
+  `scripts/agent-check` could not run in this session (command denied by the
+  session's permission mode), so PR CI is the gate for that check.
+- Next: when the tool is available, submit both resourcing questions with
+  `submit_proposal`, then link the proposals from STATUS.md.
+
+---
+
 # Project Steward Status Refresh - 2026-10-28
 
 - Worktree: `/home/dieterolson/staff-worktrees/Launch-Monitor-Data-run-c6837c438f37`.
